@@ -1,0 +1,203 @@
+<div class="row">
+    <div class="col-sm">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title"><strong>Temas</strong> </h4>
+                <hr>
+                <div class="r-panel-body">
+                    <ul id="themecolors" class="m-t-20">
+                        <li><b>Con el sidebar claro</b></li>
+                        <li><a #link1 (click)="cambiarColor('default',link1)" data-theme="default" class="selector default-theme">1</a></li>
+                        <li><a #link2 (click)="cambiarColor('green',link2)" data-theme="green" class="selector green-theme">2</a></li>
+                        <li><a #link3 (click)="cambiarColor('red',link3)" data-theme="red" class="selector red-theme">3</a></li>
+                        <li><a #link4 (click)="cambiarColor('blue',link4)" data-theme="blue" class="selector blue-theme">4</a></li>
+                        <li><a #link5 (click)="cambiarColor('purple',link5)" data-theme="purple" class="selector purple-theme">5</a></li>
+                        <li><a #link6 (click)="cambiarColor('megna',link6)" data-theme="megna" class="selector megna-theme">6</a></li>
+
+                        <li class="d-block m-t-30"><b>Con el sidebar oscuro</b></li>
+                        <li><a #link7 (click)="cambiarColor('default-dark',link7)" data-theme="default-dark" class="selector default-dark-theme">7</a></li>
+                        <li><a #link8 (click)="cambiarColor('green-dark',link8)" data-theme="green-dark" class="selector green-dark-theme">8</a></li>
+                        <li><a #link9 (click)="cambiarColor('red-dark',link9)" data-theme="red-dark" class="selector red-dark-theme">9</a></li>
+                        <li><a #link10 (click)="cambiarColor('blue-dark',link10)" data-theme="blue-dark" class="selector blue-dark-theme">10</a></li>
+                        <li><a #link11 (click)="cambiarColor('purple-dark',link11)" data-theme="purple-dark" class="selector purple-dark-theme">11</a></li>
+                        <li><a #link12 (click)="cambiarColor('megna-dark',link12)" data-theme="megna-dark" class="selector megna-dark-theme">12</a></li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title"><strong>Cambiar Contraseña</strong> </h3>
+                <hr>
+                <form ngNativeValidate [formGroup]="password" (ngSubmit)="cambiarContrasena()" class="form-horizontal form-material" id="loginform">
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <input formControlName="pass1" name="pass1" class="form-control" type="password" required placeholder="Contraseña">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input formControlName="pass2" name="pass2" class="form-control" type="password" required placeholder="Confirmar Contraseña">
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="password.errors?.sonIguales && !password.pristine">
+                        <p class="text-danger">
+                            Las contraseñas deben de ser iguales
+                        </p>
+                    </div>
+                    <div class="form-group text-center m-t-20">
+                        <div class="col-xs-12">
+                            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Cambiar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm">
+        <div class="card" *ngIf="!this.forma">
+            <div class="card-body">
+                <div class="login-box card">
+                    <div class="text-center">
+                        <form ngNativeValidate [formGroup]="formCommerce" (ngSubmit)="modificarDatos()" class="form-horizontal form-material" id="loginform" action="index.html">
+                            <h3 class="card-title"><strong>Modificación de Datos</strong> </h3>
+                            <hr>
+                            <div class="form-group m-t-20">
+                                <div class="col-xs-12">
+                                    <input formControlName="telefonoComercio" name="telefonoComercio" class="form-control" type="text" required placeholder="Telefono del Comercio">
+                                </div>
+                            </div>
+                            <div class="form-group m-t-20">
+                                <div class="col-xs-12">
+                                    <input formControlName="pais" name="pais" class="form-control" type="text" required placeholder="País">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="col-xs-12">
+                                    <input formControlName="correo" name="correo" class="form-control" type="text" required placeholder="Correo Electronico">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <input formControlName="direccion" name="direccion" class="form-control" type="text" required placeholder="Dirección">
+                                </div>
+                            </div>
+                            <div class="form-group m-t-20">
+                                <div class="col-xs-12">
+                                    <input formControlName="nombreContacto" name="nombreContacto" class="form-control" type="text" required placeholder="Nombre del Contacto">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <input formControlName="telefono" name="telefono" class="form-control" type="text" required placeholder="Teléfono del Contacto">
+                                </div>
+                            </div>
+                            <div class="form-group text-center m-t-20">
+                                <div class="col-xs-12">
+                                    <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Actualizar</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card" *ngIf="this.forma">
+            <div class="card-body">
+                <div class="login-box card">
+                    <div>
+                        <h3 class="card-title"><strong>Modificación de Datos</strong> </h3>
+                        <hr>
+
+                        <form ngNativeValidate [formGroup]="formPerson" (ngSubmit)="modificarDatos()" class="form-horizontal form-material" id="loginform" action="index.html">
+                            <div class="form-group m-t-20">
+                                <div class="col-xs-12">
+                                    <input formControlName="nombre" name="nombre" class="form-control" type="text" required placeholder="Nombre">
+                                </div>
+                            </div>
+                            <div class="form-group m-t-20">
+                                <div class="col-xs-12">
+                                    <input formControlName="apellido" name="apellido" class="form-control" type="text" required placeholder="Apellido">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <select formControlName="genero" name="genero" class="form-control" id="genero">
+                                        <option [ngValue]="null" disabled selected>Género</option>
+                                        <option value="Male">Masculino</option>
+                                        <option value="Female">Femenino</option>
+                                      </select>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="col-xs-12">
+                                    <input formControlName="correo" name="correo" class="form-control" type="text" required placeholder="Correo Electronico">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <input formControlName="direccion" name="direccion" class="form-control" type="text" required placeholder="Dirección">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <input formControlName="telefono" name="telefono" class="form-control" type="text" required placeholder="Teléfono">
+                                </div>
+                            </div>
+                            <div class="form-group text-center m-t-20">
+                                <div class="col-xs-12">
+                                    <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Actualizar</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="col-sm">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title"><strong>Configurar Parametros</strong> </h3>
+                <hr>
+                <form ngNativeValidate [formGroup]="parametros" (ngSubmit)="configurarParametros()" class="form-horizontal form-material" id="loginform">
+                    <div class="form-group ">
+                        <h4>Cantidad de Transacciones:</h4>
+                        <div class="col-xs-12">
+                            <input formControlName="cantidad" name="cantidad" class="form-control" type="text" required placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h4>Monto Diario:</h4>
+                        <div class="col-xs-12">
+                            <input formControlName="monto" name="monto" class="form-control" type="text" required placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h4>Limite por Transacción:</h4>
+                        <div class="col-xs-12">
+                            <input formControlName="limite" name="limite" class="form-control" type="text" required placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group text-center m-t-20">
+                        <div class="col-xs-12">
+                            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Cambiar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

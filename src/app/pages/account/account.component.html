@@ -1,0 +1,67 @@
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="text-center"><strong>Datos del Usuario</strong></h2>
+                <hr>
+                <div class="row justify-content-md-center">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4><strong>Usuario:</strong> {{usuario.username}}</h4>
+                            </div>
+                            <div class="card-body">
+                                <h4><strong>Numero de Cuenta:</strong> {{nroCuenta}}</h4>
+                            </div>
+                            <div class="card-body">
+                                <h4><strong>Correo:</strong> {{usuario.email}}</h4>
+                            </div>
+                            <div class="card-body">
+                                <h4><strong>Cédula o RIF:</strong> {{usuario.identification}}</h4>
+                            </div>
+                            <div *ngIf="natural">
+                                <div class="card-body">
+                                    <h4><strong>Nombre:</strong> {{persona.first_name}} {{persona.last_name}}</h4>
+                                </div>
+                                <div class="card-body">
+                                    <h4><strong>Género:</strong> {{persona.gender}}</h4>
+                                </div>
+                                <div class="card-body">
+                                    <h4><strong>Pais de Nacimiento:</strong> {{persona.birth_country}}</h4>
+                                </div>
+                                <div class="card-body">
+                                    <h4><strong>Fecha de Nacimiento:</strong> {{persona.birthdate | date: 'dd/MM/yyyy'}}</h4>
+                                </div>
+                            </div>
+                            <div *ngIf="!natural">
+                                <div class="card-body">
+                                    <h4><strong>Nombre de la Empresa:</strong> {{comercio.commerce_name}}</h4>
+                                </div>
+                                <div class="card-body">
+                                    <h4><strong>País:</strong> {{comercio.country}}</h4>
+                                </div>
+                                <div class="card-body">
+                                    <h4><strong>Persona de Contacto:</strong> {{comercio.contact_name}}</h4>
+                                </div>
+                                <div class="card-body">
+                                    <h4><strong>Telefono de Contacto:</strong> {{comercio.contact_celphone}}</h4>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <h4><strong>Dirección:</strong> {{usuario.direction}}</h4>
+                            </div>
+                            <div class="card-body">
+                                <h4><strong>Teléfono:</strong> {{usuario.phone}}</h4>
+                            </div>
+                            <div class="card-body">
+                                <h4><strong>Fecha de Registro:</strong> {{usuario.register_date | date: 'dd/MM/yyyy'}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

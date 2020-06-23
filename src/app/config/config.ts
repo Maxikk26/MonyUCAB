@@ -1,0 +1,1 @@
+export const URL_SERVICIOS = 'http://monyucab-aempresa.somee.com/api';

@@ -1,0 +1,117 @@
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="card">
+            <div class="card-body">
+                <form ngNativeValidate [formGroup]="form" (ngSubmit)="recargarSaldo()" class="form-horizontal form-material">
+                    <h2 class="card-title text-center"> <strong>Recargar Saldo</strong> </h2>
+                    <hr>
+                    <div class="form-group m-t-20">
+                        <div class="col-xs-12">
+                            <h3>Introduce el monto a recargar</h3>
+                            <input formControlName="monto" name="monto" class="form-control" type="number" ng-pattern="/[1-9]/" [(ngModel)]="monto" />
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="form.errors?.montoValido && !form.pristine">
+                        <p class="text-danger">
+                            Ingrese un monto valido
+                        </p>
+                    </div>
+                    <div class="form-group m-t-20">
+                        <div class="col-xs-12">
+                            <input formControlName="nombre" name="nombre" class="form-control" type="text" required placeholder="Nombre del tarjeta habiente">
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <select formControlName="tipo" name="tipo" class="form-control" (change)="toggle($event)">
+                                <option [ngValue]="null" disabled selected>Tipo de Tarjeta</option>
+                                <option value="Debito">Debito</option>
+                                <option value="Credito">Credito</option>
+                              </select>
+                        </div>
+                    </div>
+                    <div class="form-group m-t-20">
+                        <div class="col-xs-12">
+                            <input formControlName="numeroTarjeta" name="numeroTarjeta" class="form-control" type="number" required placeholder="Numero de Tarjeta">
+                        </div>
+                    </div>
+
+                    <div class="form-group m-t-20">
+                        <div class="col-xs-12">
+                            <h3>Opcional: Tarjetas de registradas en el sistemas</h3>
+                            <select formControlName="tarjetaEx" name="tarjetaEx" class="form-control" [ngModel]="tarjeta" (ngModelChange)="onChange($event)">
+                                <option  *ngFor="let numero of tarjeta" value="{{numero.card_number}}">{{numero.card_number}}</option>
+                              </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <select formControlName="banco" name="banco" class="form-control">
+                                <option [ngValue]="null" disabled selected>Banco</option>
+                                <option *ngFor="let bancos of banco" value="{{bancos.bank_name}}">{{bancos.bank_name}}</option>
+                              </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row col-xs-12">
+                            <div class="col-6">
+                                <select formControlName="mes" name="mes" class="form-control">
+                                <option [ngValue]="null" disabled selected>Mes</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                              </select>
+                            </div>
+                            <div class="col-6">
+                                <select formControlName="año" name="año" class="form-control">
+                                <option [ngValue]="null" disabled selected>Año</option>
+                                <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                                <option value="2022">2022</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                                <option value="2027">2027</option>
+                                <option value="2028">2028</option>
+                                <option value="2029">2029</option>
+                                <option value="2030">2030</option>
+                              </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="tipo">
+                        <div class="col-xs-12">
+                            <select formControlName="marca" name="marca" class="form-control">
+                                <option [ngValue]="null" disabled selected>Marca</option>
+                                <option value="Visa">Visa</option>
+                                <option value="Master Card">Master Card</option>
+                              </select>
+                        </div>
+                    </div>
+                    <div class="form-group " *ngIf="tipo">
+                        <div class="col-xs-12">
+                            <input formControlName="cvc" name="cvc" class="form-control" type="number" required placeholder="CVC">
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center m-t-20">
+                        <div class="col-xs-12">
+                            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Recargar</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

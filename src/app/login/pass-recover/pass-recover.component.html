@@ -1,0 +1,38 @@
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<section id="wrapper" class="login-register login-sidebar " style="background-image:url(../assets/images/background/login-register.jpg);">
+    <div class="login-box card login-height">
+        <div class="card-body">
+            <form ngNativeValidate #f="ngForm" class="form-horizontal form-material" (ngSubmit)="recuperarContrasena(f)">
+                <a href="javascript:void(0)" class="text-center db"><img src="../assets/images/logo-icon.png" alt="Home" /><br/><img src="../assets/images/logo-text.png" alt="Home" /></a>
+                <br>
+                <div class="form-group text-center">
+                    <div class="col-6">
+                        <button routerLink="/login" class="btn btn-info btn-block waves-effect waves-light mdi mdi-arrow-left-bold">Volver</button>
+                    </div>
+                </div>
+                <h3 class="box-title m-t-40 m-b-0">Introduzca su usuario:</h3>
+                <div class="form-group m-t-40">
+                    <div class="col-xs-12">
+                        <input [ngModel]="user" name="usuario" class="form-control" type="text" required placeholder="Usuario">
+                    </div>
+                </div>
+                <div class="form-group text-center m-t-20">
+                    <div class="col-xs-12">
+                        <button class="btn btn-info btn-lg btn-block text-uppercase btn-rounded" type="submit">Recuperar Contraseña</button>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group m-b-0">
+                    <div class="col-sm-12 text-center">
+                        ¿No tienes cuenta? <a class="text-primary m-l-5"><b routerLink="/register">Crear Cuenta</b></a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
