@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
-import { UsuarioService, AccountService } from './../../services/service.index';
+import { UsuarioService, AccountService, SharedService } from './../../services/service.index';
 import { PersonaRegistro } from 'src/app/models/persona-registro.model';
 import { DatePipe } from '@angular/common';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 
 declare function init_plugins();
 
@@ -23,14 +24,18 @@ export class PersonaComponent implements OnInit {
   currentDate: string;
   incorrect: string;
   parametros: any[];
+  paises: Object;
 
   constructor(
     public _personaService: UsuarioService,
     private datePipe: DatePipe,
     public router: Router,
-    public _accountService: AccountService 
+    public _accountService: AccountService,
+    private http: HttpClient, 
+    public dataService: SharedService
     ) 
       { 
+    
     
         this.date = new Date();
         this.currentDate = this.datePipe.transform(this.date,'yyyy-MM-dd');
@@ -69,11 +74,10 @@ export class PersonaComponent implements OnInit {
       condiciones: new FormControl(false)
     }, { validators: this.sonIguales('pass','pass2') });
 
-    this.form.setValue({
+    this.form.patchValue({
       nombre: 'Maximiliano',
       apellido: 'Bogoljubskij',
       fechaNac:'26/01/1999',
-      paisNac:'Venezuela',
       genero:'Male',
       usuario:'Maxikk26',
       correo:'maximiliano.bogo@gmail.com',
@@ -84,6 +88,15 @@ export class PersonaComponent implements OnInit {
       identificacion:'26573051',
       condiciones: true
     });
+
+    //Para poblar los países
+
+    this.http.get("/assets/json/countries.json").pipe(map(data => {
+      this.paises = Object.keys(data).map(x=>data[x])[0];
+      console.log(data);
+    })).subscribe(result => {
+      console.log(result);
+    });
   }
 
   registrarPersona(){
@@ -93,14 +106,14 @@ export class PersonaComponent implements OnInit {
       let error = this.findInvalidControls();
       switch (error){
         case 'correo':
-          this.incorrect = 'Correo Invalido';
+          this.incorrect = 'Correo Inválido.';
           break;
       }
       this.imprimirError(this.incorrect);
       return;
     }
     if(!this.form.value.condiciones){
-      this.imprimirError('Debe de aceptar las condiciones');
+      this.imprimirError('Debe de aceptar las condiciones.');
       return;
     }
 
@@ -147,16 +160,15 @@ export class PersonaComponent implements OnInit {
           confirmButtonText: 'Ok'
         });
       });
-      console.log(json);
-      
-      
+      this.dataService.alert = true;
     },((error: HttpErrorResponse) =>{
       console.log(error);
       if(error.error.includes('El Email Ingresado ya Existe'))
         this.imprimirError('El correo ingresado ya existe');
       if(error.error.includes('El Usuario Ingresado ya Existe'))
         this.imprimirError('El usuario ingresado ya existe');
-        
+      else
+        this.imprimirError('El correo ingresado ya existe');
     }));
 
     

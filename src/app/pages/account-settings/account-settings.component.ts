@@ -8,7 +8,6 @@ import { PersonaRegistro } from './../../models/persona-registro.model';
 import { Router } from '@angular/router';
 import  Swal  from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
-import { format } from 'url';
 
 @Component({
   selector: 'app-account-settings',
@@ -53,6 +52,9 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    //Forms de persona
+
     this.comercio = this._comercioService.vacio();
     this.persona = this._personaService.vacio();
     this.formCommerce = new FormGroup({
@@ -97,7 +99,8 @@ export class AccountSettingsComponent implements OnInit {
         this.forma = false;
         this.formComercio(resp);
       });
-    }    
+    }
+    
   }
   setParametros(json:any){
     this.formAux2 = new FormGroup({
@@ -316,5 +319,18 @@ export class AccountSettingsComponent implements OnInit {
       this.validarForms(this.formCommerce,this.formAux,false);
     }
   }
+
+
+  /* closeDiv(){
+    if (document.getElementById('shj').classList.contains('h-hide')) {
+      document.getElementById('shj').classList.remove('h-hide');
+      document.getElementById('sj').style.display = 'none';
+      document.getElementById('sh').style.display = 'block';
+    } else {
+      document.getElementById('shj').classList.add('h-hide');
+      document.getElementById('sh').style.display = 'none';
+      document.getElementById('sj').style.display = 'block';
+    }
+  } */
 
 }

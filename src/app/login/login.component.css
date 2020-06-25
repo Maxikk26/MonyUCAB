@@ -78,3 +78,7 @@ Login register and recover password Page
 .login-height{
     height: 100%;
 }
+
+.selectionable{
+    cursor: pointer;
+}

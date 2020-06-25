@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
-import { UsuarioService } from './../../services/service.index';
+import { HttpClient,HttpErrorResponse} from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { UsuarioService, SharedService } from './../../services/service.index';
 import Swal from 'sweetalert2';
 import { ComercioRegistro } from './../../models/comercio-registro.model';
 import { AccountService } from 'src/app/services/service.index';
-import { HttpErrorResponse } from '@angular/common/http';
 
 declare function init_plugins();
 
@@ -23,13 +25,18 @@ export class ComercioComponent implements OnInit {
   date: Date;
   currentDate: string;
   parametros: any[];
+  paises: Object;
 
   constructor(
     public _comercioService: UsuarioService,
     private datePipe: DatePipe,
-    public _accountService: AccountService
+    public _accountService: AccountService,
+    public dataService: SharedService,
+    public http: HttpClient,
+    public router: Router 
     )
   {
+  
     
     this.date = new Date();
     this.currentDate = this.datePipe.transform(this.date,'yyyy-MM-dd');
@@ -82,6 +89,14 @@ export class ComercioComponent implements OnInit {
       condiciones: true
     });
 
+    //Para poblar los países
+
+    this.http.get("/assets/json/countries.json").pipe(map(data => {
+      this.paises = Object.keys(data).map(x=>data[x])[0];
+      console.log(data);
+    })).subscribe(result => {
+      console.log(result);
+    });
   }
 
   registrarComercio(){
@@ -120,7 +135,6 @@ export class ComercioComponent implements OnInit {
     );
 
     console.log(comercio);
-    
 
     this._comercioService.crearUsuario(comercio)
     .subscribe(resp =>{
@@ -146,8 +160,15 @@ export class ComercioComponent implements OnInit {
       });
       console.log(json);
       console.log(resp);
-      
-    });
+      this.dataService.alert = true;
+      this.router.navigate(['login']);
+    },((error: HttpErrorResponse) =>{
+      console.log(error);
+      if(error.error.includes('El Email Ingresado ya Existe'))
+        this.imprimirError('El correo ingresado ya existe');
+      if(error.error.includes('El Usuario Ingresado ya Existe'))
+        this.imprimirError('El usuario ingresado ya existe');
+    }));
 
     
   }
