@@ -12,13 +12,18 @@ import { Login } from './../../models/login.model';
   providedIn: 'root'
 })
 export class UsuarioService {
-  loginState = new BehaviorSubject<boolean>(false);
+  loginState = new BehaviorSubject<boolean>(this.hasToken());
   user: string;
 
+  
   constructor(
     public http: HttpClient,
     public router: Router
   ) { 
+  }
+
+  hasToken(){
+    return !!localStorage.getItem('id');
   }
 
   estaLogueado(){

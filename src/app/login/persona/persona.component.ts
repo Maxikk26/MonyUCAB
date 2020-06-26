@@ -74,7 +74,7 @@ export class PersonaComponent implements OnInit {
       condiciones: new FormControl(false)
     }, { validators: this.sonIguales('pass','pass2') });
 
-    this.form.patchValue({
+    /* this.form.patchValue({
       nombre: 'Maximiliano',
       apellido: 'Bogoljubskij',
       fechaNac:'26/01/1999',
@@ -87,7 +87,7 @@ export class PersonaComponent implements OnInit {
       telefono:'04142904335',
       identificacion:'26573051',
       condiciones: true
-    });
+    }); */
 
     //Para poblar los países
 
