@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterContentInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { SharedService } from '../services/shared/shared.service';
@@ -15,7 +15,7 @@ declare function init_plugins();
   styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent implements OnInit, AfterContentInit {
+export class LoginComponent implements OnInit {
 
   recuerdame: boolean = false;
   user:string;
