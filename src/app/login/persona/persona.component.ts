@@ -159,6 +159,7 @@ export class PersonaComponent implements OnInit {
           confirmButtonText: 'Ok'
         });
       });
+      this.router.navigate(['/login']);
       this.dataService.alert = true;
     },((error: HttpErrorResponse) =>{
       console.log(error);
