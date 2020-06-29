@@ -30,7 +30,7 @@
                 </div>
                 <div class="form-group m-t-20">
                     <select formControlName="pais" name="pais" class="form-control" id="pais" required> 
-                        <option [ngValue]="null" disabled selected>Seleccione país</option>
+                        <option [ngValue]="null" disabled selected>País</option>
                         <option *ngFor="let pais of paises" [value]="pais.name">{{pais.name}}</option>
                     </select>
                 </div>

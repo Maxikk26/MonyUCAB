@@ -39,8 +39,7 @@
                         <!-- <input formControlName="paisNac" name="paisNac" class="form-control" type="text" required placeholder="Pais de Nacimiento"> -->
                         <select formControlName="paisNac" name="paisNac" class="form-control" >
                             <option [ngValue]="null" disabled selected>País</option>
-                            <option *ngFor="let pais of paises" value="pais.name">{{pais.name}}</option>
-                            <option value="Female">Femenino</option>
+                            <option *ngFor="let pais of paises" [value]="pais.name">{{pais.name}}</option>
                           </select>
                     </div>
                 </div>
