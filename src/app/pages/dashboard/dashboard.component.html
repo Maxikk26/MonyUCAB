@@ -4,7 +4,7 @@
             <div class="card-body">
                 <div class="row justify-content-md-center align-items-center">
                     <div class="col-md-auto">
-                        <h3><strong>Saldo Disponible:</strong><strong class="text-success"> {{cuenta.balance}}$</strong></h3>
+                        <h3><strong>Saldo Disponible:</strong><strong class="text-success">B.s {{cuenta.balance}}</strong></h3>
                     </div>
                     <div class="col-md-auto" *ngIf="natural">
                         <button routerLink="/recharge" class="btn btn-info btn-lg text-uppercase waves-effect waves-light">Recargar Saldo</button>
@@ -36,7 +36,7 @@
                             <div class="card-body">
                                 <div>
                                     <h4><strong>Fecha de la operacón:</strong> {{op.date_operation | date: 'dd/MM/yyyy'}}</h4>
-                                    <h4><strong>Monto: </strong> <strong class="text-success">{{op.amount}}$</strong></h4>
+                                    <h4><strong>Monto: </strong> <strong class="text-success">B.s {{op.amount}}</strong></h4>
                                     <h4><strong>Destinatario: </strong> {{op.account_number}}</h4>
                                     <h4><strong>Referencia: </strong> {{op.reference}}</h4>
                                     <h4><strong>Tipo de operación: </strong> {{op.type_operation}}</h4>
@@ -74,7 +74,7 @@
                                 <div>
                                     <h4><strong>Estatus: </strong> <strong class="text-success">{{op.status}}</strong></h4>
                                     <h4><strong>Referencia: </strong> {{op.reference}}</h4>
-                                    <h4><strong>Monto: </strong> <strong class="text-success">{{op.amount}}$</strong></h4>
+                                    <h4><strong>Monto: </strong> <strong class="text-success">B.s {{op.amount}}</strong></h4>
                                     <hr>
                                 </div>
                             </div>
@@ -107,7 +107,7 @@
                             <div class="card-body">
                                 <div>
                                     <h4><strong>Fecha de la operacón:</strong> {{op.date_operation | date: 'dd/MM/yyyy'}}</h4>
-                                    <h4><strong>Monto: </strong> <strong class="text-success">{{op.amount}}$</strong></h4>
+                                    <h4><strong>Monto: </strong> <strong class="text-success">B.s {{op.amount}}</strong></h4>
                                     <h4><strong>Destinatario: </strong> {{op.account_number}}</h4>
                                     <h4><strong>Referencia: </strong> {{op.reference}}</h4>
                                     <h4><strong>Tipo de operación: </strong> {{op.type_operation}}</h4>

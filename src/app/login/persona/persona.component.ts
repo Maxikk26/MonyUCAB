@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
 import Swal from 'sweetalert2';
 import { UsuarioService, AccountService, SharedService } from './../../services/service.index';
 import { PersonaRegistro } from 'src/app/models/persona-registro.model';
@@ -153,12 +152,12 @@ export class PersonaComponent implements OnInit {
             });
           }
         });
-        Swal.fire({
+       /*  Swal.fire({
           title: '¡Exito!',
           text: 'Registrado satisfactoriamente',
           icon: 'success',
           confirmButtonText: 'Ok'
-        });
+        }); */
       });
       this.dataService.alert = true;
     },((error: HttpErrorResponse) =>{
