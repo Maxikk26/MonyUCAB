@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
       this.recuerdame = true; 
   }
 
-  ngAfterContentInit(){
+  /* ngAfterContentInit(){
     if (this.dataService.alert){
       this.dataService.alert = false;
       Swal.fire({
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
         confirmButtonText: 'Ok'
       })
     }
-  }
+  } */
 
   ingresar(form: NgForm) {
     if(form.invalid){

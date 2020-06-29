@@ -151,12 +151,12 @@ export class ComercioComponent implements OnInit {
             });
           }
         });
-        /* Swal.fire({
+        Swal.fire({
           title: '¡Exito!',
           text: 'Registrado satisfactoriamente',
           icon: 'success',
           confirmButtonText: 'Ok'
-        }); */
+        });
       });
       console.log(json);
       console.log(resp);

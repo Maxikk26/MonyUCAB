@@ -152,12 +152,12 @@ export class PersonaComponent implements OnInit {
             });
           }
         });
-       /*  Swal.fire({
+        Swal.fire({
           title: '¡Exito!',
           text: 'Registrado satisfactoriamente',
           icon: 'success',
           confirmButtonText: 'Ok'
-        }); */
+        });
       });
       this.dataService.alert = true;
     },((error: HttpErrorResponse) =>{
