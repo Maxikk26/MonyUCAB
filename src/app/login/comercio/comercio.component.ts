@@ -74,7 +74,7 @@ export class ComercioComponent implements OnInit {
       condiciones: new FormControl(false)
     }, { validators: this.sonIguales('pass', 'pass2') });
 
-    /* this.form.setValue({
+    this.form.setValue({
       nombreComercio: 'UCAB',
       rif: '159874',
       telefonoComercio:'02127533314',
@@ -87,7 +87,7 @@ export class ComercioComponent implements OnInit {
       pass:'123',
       pass2:'123',
       condiciones: true
-    }); */
+    });
 
     //Para poblar los países
 
@@ -160,8 +160,8 @@ export class ComercioComponent implements OnInit {
       });
       console.log(json);
       console.log(resp);
-      this.dataService.alert = true;
-      this.router.navigate(['login']);
+      //this.dataService.alert = true;
+      this.router.navigate(['/login']);
     },((error: HttpErrorResponse) =>{
       console.log(error);
       if(error.error.includes('El Email Ingresado ya Existe'))

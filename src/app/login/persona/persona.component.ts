@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+
 import Swal from 'sweetalert2';
 import { UsuarioService, AccountService, SharedService } from './../../services/service.index';
 import { PersonaRegistro } from 'src/app/models/persona-registro.model';
@@ -73,7 +74,7 @@ export class PersonaComponent implements OnInit {
       condiciones: new FormControl(false)
     }, { validators: this.sonIguales('pass','pass2') });
 
-    /* this.form.patchValue({
+    this.form.patchValue({
       nombre: 'Maximiliano',
       apellido: 'Bogoljubskij',
       fechaNac:'26/01/1999',
@@ -86,7 +87,7 @@ export class PersonaComponent implements OnInit {
       telefono:'04142904335',
       identificacion:'26573051',
       condiciones: true
-    }); */
+    });
 
     //Para poblar los países
 
@@ -159,8 +160,9 @@ export class PersonaComponent implements OnInit {
           confirmButtonText: 'Ok'
         });
       });
+      //this.dataService.alert = true;
       this.router.navigate(['/login']);
-      this.dataService.alert = true;
+
     },((error: HttpErrorResponse) =>{
       console.log(error);
       if(error.error.includes('El Email Ingresado ya Existe'))
