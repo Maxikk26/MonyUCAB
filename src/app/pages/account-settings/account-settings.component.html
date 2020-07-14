@@ -167,7 +167,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm">
+    <div class="col-sm" *ngIf='rol'>
         <div class="card">
             <div class="card-body">
                 <h3 class="card-title"><strong>Configurar Parametros</strong> </h3>
@@ -197,6 +197,24 @@
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" >
+    <div class="col-6" *ngIf='rol'>
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title"><strong>Crear Sub-Usuarios</strong> </h3>
+                <hr>
+                <h4>Si de desea crear un usuario secundario asociado a su cuenta por favor haga click en el boton de "CREAR" y llene el formulario de registro</h4>
+                <hr>
+                <h5>Nota: Los usuarios secundarios creados solo tendran acceso a funciones limitadas del sistema como por ejemplo: Pagar con saldo de monedero y Ajustes de los datos del perfil</h5>
+                <hr>
+                <div class="col-xs-12">
+                    <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" routerLink='/subuser'>Crear</button>
+                </div>
             </div>
         </div>
     </div>

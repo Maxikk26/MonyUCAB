@@ -1,3 +1,4 @@
+export { AdminGuardGuard } from './guards/admin-guard.guard';
 export { UsuarioService } from './usuario/usuario.service';
 export { RechargeService } from './recharge/recharge.service';
 export { AccountService } from './account/account.service';

@@ -10,16 +10,10 @@ declare function init_plugins();
 })
 export class RegisterComponent implements OnInit {
 
-  forma: FormGroup;
-
   constructor() { }
 
   ngOnInit() {
     init_plugins();
-
-    this.forma = new FormGroup({
-      
-    });
   }
 
 }

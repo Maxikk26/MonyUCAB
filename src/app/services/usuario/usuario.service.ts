@@ -13,6 +13,7 @@ import { Login } from './../../models/login.model';
 })
 export class UsuarioService {
   loginState = new BehaviorSubject<boolean>(this.hasToken());
+  adminState = new BehaviorSubject<boolean>(this.hasAdminToken());
   user: string;
 
   
@@ -26,14 +27,19 @@ export class UsuarioService {
     return !!localStorage.getItem('id');
   }
 
+  hasAdminToken(){
+    return localStorage.getItem('rol') == 'natural';
+    //return localStorage.getItem('rol') == 'admin';
+  }
+
   estaLogueado(){
     console.log(this.loginState);
-    
     return this.loginState.asObservable();
   }
 
   logout(){
     this.loginState.next(false);
+    this.adminState.next(false);
     localStorage.removeItem('token');
     localStorage.removeItem('id');
     localStorage.removeItem('usuario');

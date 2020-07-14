@@ -1,0 +1,96 @@
+<!-- 
+<div class="container">
+    <div class="row justify-content-xl-center">
+        <div class="card col-6">
+            <div class="card-body">
+                <h2 class="text-center"><strong>Registrar Sub-Usuario</strong></h2>
+                <hr>
+                <form ngNativeValidate [formGroup]="form" (ngSubmit)="registrarPersona()" class="form-horizontal form-material" id="loginform" action="index.html">
+                    <div class="form-group m-t-20">
+                        <div class="col-xs-12">
+                            <input formControlName="nombre" name="nombre" class="form-control" type="text" required placeholder="Nombre">
+                        </div>
+                    </div>
+                    <div class="form-group m-t-20">
+                        <div class="col-xs-12">
+                            <input formControlName="apellido" name="apellido" class="form-control" type="text" required placeholder="Apellido">
+                        </div>
+                    </div>
+                    <div class="form-group m-t-20">
+                        <div *ngIf="form.pristine">
+                            <p class="text-primary">
+                                Indique su fecha de nacimiento
+                            </p>
+                        </div>
+                        <div class="col-xs-12">
+                            <input [ngModel]="date | date:'yyyy-MM-dd'" formControlName="fechaNac" name="fechaNac" class="form-control textbox-n" type="date" required placeholder="Fecha de Nacimiento">
+                        </div>
+                    </div>
+    
+                    <div class="form-group m-t-20">
+                        <div class="col-xs-12">
+                            <select formControlName="paisNac" name="paisNac" class="form-control" >
+                                <option [ngValue]="null" disabled selected>País</option>
+                                <option *ngFor="let pais of paises" [value]="pais.name">{{pais.name}}</option>
+                              </select>
+                        </div>
+                    </div>    
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <select formControlName="genero" name="genero" class="form-control" id="genero">
+                                <option [ngValue]="null" disabled selected>Género</option>
+                                <option value="Male">Masculino</option>
+                                <option value="Female">Femenino</option>
+                              </select>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <input formControlName="usuario" name="usuario" class="form-control" type="text" required placeholder="Usuario">
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <input formControlName="correo" name="correo" class="form-control" type="email" required placeholder="Correo Electronico">
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <input formControlName="pass" name="pass" class="form-control" type="password" required placeholder="Contraseña">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input formControlName="pass2" name="pass2" class="form-control" type="password" required placeholder="Confirmar Contraseña">
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="form.errors?.sonIguales && !form.pristine">
+                        <p class="text-danger">
+                            Las contraseñas deben de ser iguales
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input formControlName="direccion" name="direccion" class="form-control" type="text" required placeholder="Dirección">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input formControlName="telefono" name="telefono" class="form-control" type="text" pattern="^\d{11}$" required placeholder="Teléfono">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input formControlName="identificacion" name="identificacion" class="form-control" type="text" required placeholder="Cédula o RIF">
+                        </div>
+                    </div>
+                    <div class="form-group text-center m-t-20">
+                        <div class="col-xs-12">
+                            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Crear Usuario</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> -->

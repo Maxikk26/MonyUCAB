@@ -39,6 +39,7 @@ export class RechargeService {
     bank_name: '',
     bank_status: 0
   }];
+  montoExterno:number = 0;
  
 
   constructor

@@ -17,6 +17,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class AccountSettingsComponent implements OnInit {
   password: FormGroup;
   formPerson: FormGroup;
+  formSubUser: FormGroup;
   parametros: FormGroup;
   formCommerce: FormGroup;
   formAux: FormGroup;
@@ -25,6 +26,7 @@ export class AccountSettingsComponent implements OnInit {
   forma: boolean ;
   comercio: ComercioRegistro;
   persona: PersonaRegistro;
+  rol = false;
 
    constructor( 
     public _ajustes: SettingsService,
@@ -90,6 +92,7 @@ export class AccountSettingsComponent implements OnInit {
       this.setParametros(resp);
     });
     if(rol === 'natural'){
+      this.rol = true;
       this._personaService.getPersona(id).subscribe(resp=>{
         this.forma = true;
         this.formPersona(resp);
@@ -320,17 +323,5 @@ export class AccountSettingsComponent implements OnInit {
     }
   }
 
-
-  /* closeDiv(){
-    if (document.getElementById('shj').classList.contains('h-hide')) {
-      document.getElementById('shj').classList.remove('h-hide');
-      document.getElementById('sj').style.display = 'none';
-      document.getElementById('sh').style.display = 'block';
-    } else {
-      document.getElementById('shj').classList.add('h-hide');
-      document.getElementById('sh').style.display = 'none';
-      document.getElementById('sj').style.display = 'block';
-    }
-  } */
 
 }
