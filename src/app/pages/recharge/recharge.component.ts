@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RechargeService, AccountService } from 'src/app/services/service.index';
 import { Account } from '../../models/account.model';
-import { FormGroup, FormControl, Validators, ControlContainer } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Recharge } from 'src/app/models/recharge.model';
 import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
@@ -30,6 +30,7 @@ export class RechargeComponent implements OnInit {
   date: Date;
   currentDate: string;
   newCard: boolean = true;
+  paidPal = false;
 
 
   constructor(
@@ -44,6 +45,7 @@ export class RechargeComponent implements OnInit {
     }
 
   ngOnInit() {
+
     this.recarga = this._rechargeService.recargaVacia();
     this.banco = this._rechargeService.bancoVacio();
     this.tarjeta = this._rechargeService.tarjetaVacia();
@@ -108,6 +110,10 @@ export class RechargeComponent implements OnInit {
       }
     }
 }
+
+  recargaExterna(){
+    this.router.navigate(['/outsiderecharge']);
+  }
 
   montoValido(campo:string){
     return (group: FormGroup)=>{

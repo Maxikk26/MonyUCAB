@@ -11,6 +11,11 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { AccountComponent } from './account/account.component';
 import { RechargeComponent } from './recharge/recharge.component';
 import { BalanceComponent } from './balance/balance.component';
+import { AdminComponent } from './admin/admin.component';
+import { SubuserComponent } from './subuser/subuser.component';
+import { OutsiderechargeComponent } from './recharge/outsiderecharge.component';
+import { ExternalrechargeComponent } from './recharge/externalrecharge.component';
+
 @NgModule({
   declarations:[
       PagesComponent,
@@ -18,7 +23,11 @@ import { BalanceComponent } from './balance/balance.component';
       AccountSettingsComponent,
       AccountComponent,
       RechargeComponent,
-      BalanceComponent
+      BalanceComponent,
+      AdminComponent,
+      SubuserComponent,
+      OutsiderechargeComponent,
+      ExternalrechargeComponent
   ],
   exports:[
       PagesComponent,
