@@ -12,7 +12,9 @@
                     <ul aria-expanded="false" class="collapse">
                         <li><a class="pointer" routerLinkActive="active" routerLink="/account">Mi Perfil </a></li>
                         <li><a class="pointer" routerLinkActive="active" routerLink="/balance" *ngIf="natural">Mi Saldo</a></li>
+                        <li><a class="pointer" routerLinkActive="active" routerLink="/withdraw" *ngIf="!natural">Retiros</a></li>
                         <li><a class="pointer" routerLinkActive="active" routerLink="/account-settings">Configurar Cuenta</a></li>
+                        <li><a class="pointer" routerLinkActive="active" routerLink="/admin-settings" *ngIf="adminrole">Configurar Cuenta</a></li>
                         <li><a class="pointer" (click)="_usuarioService.logout()">Cerrar Sesión</a></li>
                     </ul>
                 </li>

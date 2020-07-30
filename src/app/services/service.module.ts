@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SettingsService, SidebarService, SharedService, LoginGuardGuard,PersonaService,ComercioService,AccountService,RechargeService } from './service.index';
+import { SettingsService, SidebarService, SharedService, LoginGuardGuard,PersonaService,ComercioService,AccountService,RechargeService,ReportsService,AdminGuardGuard } from './service.index';
 
 
 
@@ -17,8 +17,9 @@ CommonModule
     RechargeService,
     AccountService,
     PersonaService,
-    ComercioService
-
+    ComercioService,
+    ReportsService,
+    AdminGuardGuard
   ]
 })
 export class ServiceModule { }

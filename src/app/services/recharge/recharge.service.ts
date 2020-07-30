@@ -25,6 +25,7 @@ export class RechargeService {
   recharge: Recharge[] = [{
     recharge_date: '',
     amount: 0,
+    type_recharge: "",
     id_account: 0,
     bank_name: '',
     card_number: '',
@@ -38,6 +39,17 @@ export class RechargeService {
     id_bank: 0,
     bank_name: '',
     bank_status: 0
+  }];
+  stripe = [
+    {
+    token: "",
+    fecha_stripe: "",
+    type: "Recharge",
+    amount: 0,
+    description: "Recarga por Stripe", 
+    fk_account_send: 0,
+    fk_account_receive: "",
+    expiration_date: "2025-07-06",
   }];
   montoExterno:number = 0;
  
@@ -61,6 +73,9 @@ export class RechargeService {
     return this.card;
   }
 
+  stripeVacio(){
+    return this.stripe[0];
+  }
   recargarSaldo(recarga: Recharge){
     let url = URL_SERVICIOS + '/recharges';
     return this.http.post(url,recarga);
@@ -74,6 +89,11 @@ export class RechargeService {
   getCards(id){
     let url = URL_SERVICIOS + '/cards/'+id;
     return this.http.get(url);
+  }
+
+  postStripe(json){
+    let url = URL_SERVICIOS + '/stripe';
+    return this.http.post(url,json);
   }
 
 }

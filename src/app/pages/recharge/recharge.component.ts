@@ -156,6 +156,7 @@ export class RechargeComponent implements OnInit {
       this.cuenta = resp;
       this.recarga.recharge_date = this.currentDate;
       this.recarga.amount = this.form.controls['monto'].value;
+      this.recarga.type_recharge = "Card";
       this.recarga.id_account = this.cuenta.id_account;
       this.recarga.bank_name = this.form.controls['banco'].value;
       this.recarga.card_number = this.form.controls['numeroTarjeta'].value;

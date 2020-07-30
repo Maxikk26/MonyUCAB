@@ -28,7 +28,7 @@ export class AccountSettingsComponent implements OnInit {
   persona: PersonaRegistro;
   rol = false;
 
-   constructor( 
+   constructor(
     public _ajustes: SettingsService,
     public _usuarioService: UsuarioService,
     public _personaService: PersonaService,
@@ -37,7 +37,7 @@ export class AccountSettingsComponent implements OnInit {
     private router: Router
   ) {
 
-    
+
    }
 
    sonIguales(campo1:string, campo2:string){
@@ -66,6 +66,7 @@ export class AccountSettingsComponent implements OnInit {
       direccion: new FormControl(this.comercio.direction, Validators.required),
       nombreContacto: new FormControl(this.comercio.contact_name, Validators.required),
       telefono: new FormControl(this.comercio.phone, Validators.required),
+      comision: new FormControl(this.comercio.commission, Validators.required)
     });
     this.formPerson = new FormGroup({
       nombre: new FormControl(this.persona.first_name, Validators.required),
@@ -89,9 +90,11 @@ export class AccountSettingsComponent implements OnInit {
     let rol = localStorage.getItem('rol');
     let idAccount = localStorage.getItem('idAccount');
     this._accountService.getParameters(idAccount).subscribe((resp:any)=>{
+      console.log('Paramtros: '+resp);
+      
       this.setParametros(resp);
     });
-    if(rol === 'natural'){
+    if(rol === 'natural' || rol === 'admin'){
       this.rol = true;
       this._personaService.getPersona(id).subscribe(resp=>{
         this.forma = true;
@@ -103,7 +106,7 @@ export class AccountSettingsComponent implements OnInit {
         this.formComercio(resp);
       });
     }
-    
+
   }
   setParametros(json:any){
     this.formAux2 = new FormGroup({
@@ -131,7 +134,7 @@ export class AccountSettingsComponent implements OnInit {
       }
     }
   }
-  
+
   configurarParametros(){
     this.validarForms(this.parametros,this.formAux2,true);
   }
@@ -143,17 +146,17 @@ export class AccountSettingsComponent implements OnInit {
     let json = JSON.parse(aux);
     json.fk_user_mu = parseInt(json.fk_user_mu);
     this._usuarioService.putPassword(json).subscribe(resp=>{
-      this.mostrarValidacion('Cambiar Contraseña','Su contraseña ha sido cambiada exitosamente','success','Ok');      
+      this.mostrarValidacion('Cambiar Contraseña','Su contraseña ha sido cambiada exitosamente','success','Ok');
     }, (error: HttpErrorResponse)=>{
       this.mostrarValidacion('Cambiar Contraseña','Su contraseña debe ser diferente a las ultimas 3 utilizadas','error','Ok');
-      
+
     });
   }
 
   cambiarColor(tema: string, link: any){
     this.aplicarCheck(link);
     this._ajustes.aplicarTema(tema);
-    
+
   }
 
   aplicarCheck(link:any){
@@ -179,13 +182,15 @@ export class AccountSettingsComponent implements OnInit {
   formComercio(comercio: any){
     if(!this.forma){
       this._usuarioService.getUsuario(comercio.fk_user_mu).subscribe((user:any)=>{
+               
         this.formCommerce.setValue({
           telefonoComercio: user.phone,
           pais: comercio.country,
           correo: user.email,
           direccion: user.direction,
           nombreContacto: comercio.contact_name,
-          telefono: comercio.contact_celphone
+          telefono: comercio.contact_celphone,
+          comision: comercio.commission
         });
         this.formAux = new FormGroup({
           telefonoComercio: new FormControl(this.comercio.contact_celphone, Validators.required),
@@ -194,15 +199,21 @@ export class AccountSettingsComponent implements OnInit {
           direccion: new FormControl(this.comercio.direction, Validators.required),
           nombreContacto: new FormControl(this.comercio.contact_name, Validators.required),
           telefono: new FormControl(this.comercio.phone, Validators.required),
+          comision: new FormControl(this.comercio.commission, Validators.required)
         });
-        this.formAux.setValue({
-          telefonoComercio: user.phone,
-          pais: comercio.country,
-          correo: user.email,
-          direccion: user.direction,
-          nombreContacto: comercio.contact_name,
-          telefono: comercio.contact_celphone
-        });
+        
+        this._comercioService.getComercio(comercio.fk_user_mu).subscribe((res:any)=>{
+          console.log(res);
+          this.formAux.setValue({
+            telefonoComercio: user.phone,
+            pais: comercio.country,
+            correo: user.email,
+            direccion: user.direction,
+            nombreContacto: comercio.contact_name,
+            telefono: comercio.contact_celphone,
+            comision: res.commission
+          });
+        })
 
       });
     }
@@ -238,10 +249,44 @@ export class AccountSettingsComponent implements OnInit {
       });
     }
   }
- 
+
   // Returns true if the user has changed the value in the form
   isDifferent(value1: string, value2: string) {
-    return value1 !== value2;
+    return value1 != value2;
+  }
+
+  validador(value1: string, value2: string, type: string){
+    let bool = true;
+    console.log(type);
+    //Se busca el valor de un admin.
+    if(type == 'cantidad')
+      this._accountService.getUsers().subscribe((resp:any)=>{
+        for (let user of resp){
+          if (user.fk_rol == 1){
+            bool = this.comprobarParametros(user.id_user,value1,'Cantidad de transacciones');
+            break;
+          }
+        }
+      });
+    else if(type == 'monto')
+      this._accountService.getUsers().subscribe((resp:any)=>{
+        for (let user of resp){
+          if (user.fk_rol == 1){
+            bool = this.comprobarParametros(user.id_user,value1,'Monto diario');
+            break;
+          }
+        }
+      });
+    else if(type == 'limite')
+      this._accountService.getUsers().subscribe((resp:any)=>{
+        for (let user of resp){
+          if (user.fk_rol == 1){
+            bool = this.comprobarParametros(user.id_user,value1,'Limite por transaccion');
+            break;
+          }
+        }
+      });
+    return bool
   }
 
   mostrarValidacion(titulo,texto,icono,confimacion){
@@ -257,13 +302,17 @@ export class AccountSettingsComponent implements OnInit {
     let id = localStorage.getItem('id');
     let arreglo = [];
     let json = [];
+    let comp = true;
     for(let key in form1.controls){
-      if(this.isDifferent(form1.controls[key].value,formAux.controls[key].value)){
+      if(this.isDifferent(form1.controls[key].value,formAux.controls[key].value))
         arreglo.push(key);
+      if(!this.validador(form1.controls[key].value,formAux.controls[key].value,key)){
+        comp = false;
+        break;
       }
     }
-    if(parametros){
-      let json1 = this._accountService.crearJsonParametros(arreglo,form1);
+    if(parametros && comp){
+      let json1 = this._accountService.crearJsonParametros(arreglo,form1,null,null);
       /* console.log(json1); */
       for(let i = 0;i < json1.length;i++){
         this._accountService.putParameters(json1[i]).subscribe((resp:any)=>{
@@ -273,7 +322,7 @@ export class AccountSettingsComponent implements OnInit {
         });
       }
       return;
-    }
+    }else if (!comp) return;
     if(this.forma){
       json = this._accountService.crearJsonPersona(arreglo,form1);
       let path = this._accountService.crearJsonUsuario(arreglo,form1);
@@ -313,7 +362,7 @@ export class AccountSettingsComponent implements OnInit {
       });
     }
   }
-  
+
   modificarDatos(){
     if(this.forma){
      this.validarForms(this.formPerson,this.formAux,false);
@@ -323,5 +372,15 @@ export class AccountSettingsComponent implements OnInit {
     }
   }
 
-
+  comprobarParametros(id_user: string, value: string, type: string){
+    this._accountService.getParameters(id_user).subscribe((data:any)=>{
+      for (let param of data){
+        if (param.parameter_name == type && value > param.parameter_value){
+          this.mostrarValidacion('Error','El valor introducido para '+type+' no es válido, ya que es mayor al límite global: '+param.parameter_value+'.','error','Ok');
+          return false;
+        }
+      }
+    });
+    return true;
+  }
 }

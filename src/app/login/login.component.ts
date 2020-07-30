@@ -57,12 +57,19 @@ export class LoginComponent implements OnInit {
     this._usuarioService.login(usuario, form.value.recuerdame)
                         .subscribe(resp =>{
                           let id = localStorage.getItem('id');
-                          this._accountService.getAccount(id).subscribe((resp:any)=>{
+                          this._usuarioService.getUsuario(id).subscribe((resp:any)=>{
                             console.log(resp);
-                            let idAccount = resp.id_account;
+                            let idAccount = resp.fk_account;
                             localStorage.setItem('idAccount',idAccount);
+                            
                           });
-                          this.router.navigate(['/dashboard']);
+                          if(localStorage.getItem('rol') == 'admin'){
+                            this.router.navigate(['/admin-dashboard']);
+                          }
+                          else{
+                            this.router.navigate(['/dashboard']);
+                            
+                          }
                         },((error: HttpErrorResponse) =>{
                           Swal.fire({
                             title: '¡Alerta!',

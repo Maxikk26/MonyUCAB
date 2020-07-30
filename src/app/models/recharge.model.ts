@@ -3,6 +3,7 @@ export class Recharge{
     constructor(
         public recharge_date: string,
         public amount: number,
+        public type_recharge: string,
         public id_account: number,
         public bank_name: string,
         public card_number: string,

@@ -41,7 +41,7 @@ export class BalanceComponent implements OnInit {
           let obj = resp[i];
           if(obj.fk_account == Number(idAccount)){
             let month = this.datePipe.transform(obj.recharge_date,'MM');
-            let str = '{"amount":'+obj.amount+',"date":"'+obj.recharge_date+'","reference":"'+obj.reference+'"}';
+            let str = '{"amount":'+obj.amount+',"date":"'+obj.recharge_date+'","reference":"'+obj.reference+'","type_recharge":"'+obj.type_recharge+'"}';
             if(this.currentMonth === month){
               this.recharges.push(JSON.parse(str));
             }

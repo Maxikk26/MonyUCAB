@@ -15,6 +15,8 @@ import { AdminComponent } from './admin/admin.component';
 import { SubuserComponent } from './subuser/subuser.component';
 import { OutsiderechargeComponent } from './recharge/outsiderecharge.component';
 import { ExternalrechargeComponent } from './recharge/externalrecharge.component';
+import { WithdrawComponent } from './withdraw/withdraw.component';
+import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 
 @NgModule({
   declarations:[
@@ -23,11 +25,13 @@ import { ExternalrechargeComponent } from './recharge/externalrecharge.component
       AccountSettingsComponent,
       AccountComponent,
       RechargeComponent,
+      AdminSettingsComponent,
       BalanceComponent,
       AdminComponent,
       SubuserComponent,
       OutsiderechargeComponent,
-      ExternalrechargeComponent
+      ExternalrechargeComponent,
+      WithdrawComponent
   ],
   exports:[
       PagesComponent,

@@ -9,6 +9,7 @@ import { SidebarService, UsuarioService } from 'src/app/services/service.index';
 export class SidebarComponent implements OnInit {
   usuario: string;
   natural: boolean;
+  adminrole: boolean;
 
   constructor(
     public _sidebar: SidebarService,
@@ -22,6 +23,10 @@ export class SidebarComponent implements OnInit {
       this.natural = true;
     else
       this.natural = false;
+    if(rol == 'admin')
+      this.adminrole = true;
+    else
+      this.adminrole = false;
 
   }
 

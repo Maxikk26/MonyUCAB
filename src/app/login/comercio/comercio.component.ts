@@ -33,11 +33,11 @@ export class ComercioComponent implements OnInit {
     public _accountService: AccountService,
     public dataService: SharedService,
     public http: HttpClient,
-    public router: Router 
+    public router: Router
     )
   {
-  
-    
+
+
     this.date = new Date();
     this.currentDate = this.datePipe.transform(this.date,'yyyy-MM-dd');
     this.currentDate = this.currentDate + 'T00:00:00';
@@ -115,7 +115,7 @@ export class ComercioComponent implements OnInit {
       })
       return;
     }
-    
+
     let comercio = new ComercioRegistro(
       this.form.value.usuario,
       this.currentDate,
@@ -125,10 +125,12 @@ export class ComercioComponent implements OnInit {
       this.form.value.rif,
       1,
       3,
+      0,
       this.form.value.nombreComercio,
       this.form.value.pais,
       this.form.value.nombreContacto,
       this.form.value.telefono,
+      0.1,
       this.form.value.pass,
       this.currentDate,
       1
@@ -147,7 +149,7 @@ export class ComercioComponent implements OnInit {
             this._accountService.postParameters(this.parametros[i]).subscribe(resp =>{
             },(error: HttpErrorResponse)=>{
               this.imprimirError(error.message);
-              
+
             });
           }
         });
@@ -170,7 +172,7 @@ export class ComercioComponent implements OnInit {
         this.imprimirError('El usuario ingresado ya existe');
     }));
 
-    
+
   }
 
   imprimirError(error:string){

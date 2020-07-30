@@ -128,6 +128,7 @@ export class PersonaComponent implements OnInit {
       this.form.value.identificacion,
       1,
       3,
+      0,
       this.form.value.nombre,
       this.form.value.apellido,
       this.form.value.fechaNac + 'T00:00:00',

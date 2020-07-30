@@ -28,8 +28,7 @@ export class UsuarioService {
   }
 
   hasAdminToken(){
-    return localStorage.getItem('rol') == 'natural';
-    //return localStorage.getItem('rol') == 'admin';
+    return localStorage.getItem('rol') == 'admin';
   }
 
   estaLogueado(){
@@ -61,7 +60,12 @@ export class UsuarioService {
                         localStorage.setItem('id',JSON.stringify(resp.id));
                         localStorage.setItem('usuario',resp.username);
                         localStorage.setItem('rol',resp.rol);
-                        this.loginState.next(true);
+                        if(resp.rol == 'admin'){
+                          this.adminState.next(true);
+                          console.log('Sesion Admin');
+                        }
+                        else
+                          this.loginState.next(true);
                         return true;
                       }
                       else{

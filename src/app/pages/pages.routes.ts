@@ -7,10 +7,12 @@ import { AccountComponent } from './account/account.component';
 import { RechargeComponent } from './recharge/recharge.component';
 import { BalanceComponent } from './balance/balance.component';
 import { AdminComponent } from './admin/admin.component';
+import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 import { AdminGuardGuard, LoginGuardGuard } from '../services/service.index';
 import { SubuserComponent } from './subuser/subuser.component';
 import { OutsiderechargeComponent } from './recharge/outsiderecharge.component';
 import { ExternalrechargeComponent } from './recharge/externalrecharge.component';
+import { WithdrawComponent } from './withdraw/withdraw.component';
 
 const pagesRoutes:Routes = [
     {
@@ -22,11 +24,12 @@ const pagesRoutes:Routes = [
             { path: 'account-settings', component: AccountSettingsComponent, data: {titulo: 'Ajustes de Perfil'}},
             { path: 'account', component: AccountComponent, data: {titulo: 'Mi Perfil'}},
             { path: 'recharge', component: RechargeComponent, data: {titulo: 'Recarga de Saldo'}},
+            { path: 'withdraw', component: WithdrawComponent, data: {titulo: 'Retiros'}},
             { path: 'balance', component: BalanceComponent, data: {titulo: 'Saldo en Cuenta'}},
             { path: 'subuser', component: SubuserComponent, data: {titulo: 'Crear Sub-Usuarios'}},
             { path: 'outsiderecharge', component: OutsiderechargeComponent, data: {titulo: 'Recargar Saldo con Paypal o Stripe'}},
             { path: 'externalrecharge', component: ExternalrechargeComponent, data: {titulo: 'Recargar Saldo con Paypal o Stripe'}},
-            { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+            { path: '', redirectTo: '/dashboard', pathMatch: 'full'}
             
 
     ]},
@@ -35,7 +38,9 @@ const pagesRoutes:Routes = [
         component: PagesComponent,
         canActivate:[AdminGuardGuard],
         children: [
-            { path: 'admin-dashboard', component: AdminComponent, data: {titulo: 'Admin Dashboard'}},           
+            { path: 'admin-dashboard', component: AdminComponent, data: {titulo: 'Admin Dashboard'}},
+            { path: 'admin-settings', component: AdminSettingsComponent, data: {titulo: 'Ajustes de Perfil'}},
+
 
     ]},
 ];

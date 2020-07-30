@@ -17,17 +17,17 @@ export class AccountService {
   parametros: any[] = [{
     fk_account:0,
     fk_parameter:1,
-    parameter_value:50
+    parameter_value:5
   },
   {
     fk_account:0,
     fk_parameter:2,
-    parameter_value:100000
+    parameter_value:10000
   },
   {
     fk_account:0,
     fk_parameter:3,
-    parameter_value:10000
+    parameter_value:1000
   }];
 
 
@@ -66,6 +66,11 @@ export class AccountService {
     return this.http.get(url);
   }
 
+  getParametersAll(){
+    let url = URL_SERVICIOS + '/parameters';
+    return this.http.get(url);
+  }
+
   getRecharges(){
     let url = URL_SERVICIOS + '/recharges';
     return this.http.get(url);
@@ -73,6 +78,11 @@ export class AccountService {
 
   getRefunds(){
     let url = URL_SERVICIOS + '/refunds';
+    return this.http.get(url);
+  }
+
+  getUsers(){
+    let url = URL_SERVICIOS + '/users';
     return this.http.get(url);
   }
 
@@ -115,6 +125,8 @@ export class AccountService {
     let feed;
     for(var i = 0; i < arreglo.length; i++){
       let index = arreglo[i];
+      console.log(index);
+      
       switch(index){
         case 'pais':
           feed = {"op":"replace","path":"/country","value":formCommerce.controls[index].value};
@@ -128,6 +140,10 @@ export class AccountService {
           feed = {"op":"replace","path":"/contact_celphone","value":formCommerce.controls[index].value};
           path.push(feed);
           break;
+        case 'comision':
+          feed = {"op":"replace","path":"/commission","value":formCommerce.controls[index].value};
+          path.push(feed);
+          break
       }
     }
     return path;
@@ -183,7 +199,7 @@ export class AccountService {
     return path;
   }
 
-  crearJsonParametros(arreglo:string[],form:FormGroup){
+  crearJsonParametros(arreglo:string[],form:FormGroup, adminAcc:Number, fullJson:string[]){
     let json;
     let array=[];
     let idAccount = localStorage.getItem('idAccount');
@@ -191,19 +207,37 @@ export class AccountService {
       let index = arreglo[i];      
       switch(index){
         case 'cantidad':
-          json = {"fk_account":idAccount,"fk_parameter":1,"parameter_value":Number(form.controls[index].value)};
-          array.push(json);
+          if(adminAcc==null){
+            json = {"fk_account":idAccount,"fk_parameter":1,"parameter_value":Number(form.controls[index].value)};
+            array.push(json);
+          }else{
+            json = {"fk_account":adminAcc,"fk_parameter":1,"parameter_value":Number(form.controls[index].value)};
+            fullJson.push(json);
+          }
           break;
         case 'monto':
-          json = {"fk_account":idAccount,"fk_parameter":2,"parameter_value":Number(form.controls[index].value)};
-          array.push(json);
+          if(adminAcc==null){
+            json = {"fk_account":idAccount,"fk_parameter":2,"parameter_value":Number(form.controls[index].value)};
+            array.push(json);
+          }else{
+            json = {"fk_account":adminAcc,"fk_parameter":2,"parameter_value":Number(form.controls[index].value)};
+            fullJson.push(json);
+          }
           break;
         case 'limite':
-          json = {"fk_account":idAccount,"fk_parameter":3,"parameter_value":Number(form.controls[index].value)};
-          array.push(json);
+          if(adminAcc==null){
+            json = {"fk_account":idAccount,"fk_parameter":3,"parameter_value":Number(form.controls[index].value)};
+            array.push(json);
+          }else{
+            json = {"fk_account":adminAcc,"fk_parameter":3,"parameter_value":Number(form.controls[index].value)};
+            fullJson.push(json);
+          }
           break;
       }
     }
-    return array;
+    if(adminAcc == null)
+      return array;
+    else
+      return fullJson;
   }
 }

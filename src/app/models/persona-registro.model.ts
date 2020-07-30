@@ -9,6 +9,7 @@ export class PersonaRegistro{
         public identification: string,
         public user_status: number,
         public failed_attempts: number,
+        public sub_user: number,
         public first_name: string,
         public last_name: string,
         public birthdate: string,

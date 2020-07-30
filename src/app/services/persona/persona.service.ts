@@ -16,6 +16,7 @@ export class PersonaService {
     identification: '',
     user_status: 0,
     failed_attempts: 0,
+    sub_user: 0,
     first_name: '',
     last_name: '',
     birthdate: '',
