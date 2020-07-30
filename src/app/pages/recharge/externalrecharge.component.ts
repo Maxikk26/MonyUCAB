@@ -5,10 +5,11 @@ import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import  Swal  from 'sweetalert2';
 import { Router } from '@angular/router';
-import { createTokenForExternalReference } from '@angular/compiler/src/identifiers';
 import { AccountService } from './../../services/account/account.service';
 
+
 declare var paypal;
+declare var Stripe;
 
 @Component({
   selector: 'app-externalrecharge',
@@ -95,7 +96,7 @@ export class ExternalrechargeComponent implements OnInit {
 
   pay(amount) {   
     
-    this.handler = (window).StripeCheckout.configure({
+    this.handler = Stripe.StripeCheckout.configure({
       key: 'pk_test_51H9DobCwcmgMmAo0CkSDi3Vc6zDhHMqR314eie67Ouu9FyLdxpMCrYOyJ7V5h8I3oK7PebQdjBtvIpBoJ9daX13m00Va2QSn6X',
       locale: 'auto',
       token: (token: any)=> {
@@ -148,7 +149,7 @@ export class ExternalrechargeComponent implements OnInit {
       s.type = "text/javascript";
       s.src = "https://checkout.stripe.com/checkout.js";
       s.onload = () => {
-        this.handler = (window).StripeCheckout.configure({
+        this.handler = Stripe.StripeCheckout.configure({
           key: 'pk_test_51H9DobCwcmgMmAo0CkSDi3Vc6zDhHMqR314eie67Ouu9FyLdxpMCrYOyJ7V5h8I3oK7PebQdjBtvIpBoJ9daX13m00Va2QSn6X',
           locale: 'auto',
           token: function (token: any) {
