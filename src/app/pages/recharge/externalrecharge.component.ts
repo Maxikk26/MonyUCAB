@@ -25,7 +25,6 @@ export class ExternalrechargeComponent implements OnInit {
   recarga: Recharge;
   date: Date;
   currentDate: string;
-  handler:any = null;
   stripeRecharge:any;
   account:any;
   
