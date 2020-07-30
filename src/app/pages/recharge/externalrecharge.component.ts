@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { RechargeService } from 'src/app/services/service.index';
 import { Recharge } from 'src/app/models/recharge.model';
 import { DatePipe } from '@angular/common';
@@ -7,9 +7,8 @@ import  Swal  from 'sweetalert2';
 import { Router } from '@angular/router';
 import { AccountService } from './../../services/account/account.service';
 
-
 declare var paypal;
-declare var Stripe;
+declare var StripeCheckout;
 
 @Component({
   selector: 'app-externalrecharge',
@@ -19,12 +18,15 @@ declare var Stripe;
 })
 export class ExternalrechargeComponent implements OnInit {
   @ViewChild('paypal', {static: true}) paypalElement: ElementRef;
+  handler;
+  confirmation: any;
+  loading = false;
   paidPal = false;
   recarga: Recharge;
   date: Date;
   currentDate: string;
   handler:any = null;
-  stripe:any;
+  stripeRecharge:any;
   account:any;
   
 
@@ -41,13 +43,12 @@ export class ExternalrechargeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.stripe = this._rechargeService.stripeVacio();   
+    this.stripeRecharge = this._rechargeService.stripeVacio();   
     let idAccount = localStorage.getItem('idAccount');
     this._accountService.getAccount(idAccount).subscribe((res:any)=>{
-      this.stripe.fk_account_receive = res.account_number;
+      this.stripeRecharge.fk_account_receive = res.account_number;
     });
     this.recarga = this._rechargeService.recargaVacia();
-    this.loadStripe();
     paypal
       .Buttons({
         createOrder:(data,actions)=>{
@@ -92,37 +93,39 @@ export class ExternalrechargeComponent implements OnInit {
         }
       })
       .render(this.paypalElement.nativeElement);  
+
+      this.handler = StripeCheckout.configure({
+        key: 'pk_test_51H9DobCwcmgMmAo0CkSDi3Vc6zDhHMqR314eie67Ouu9FyLdxpMCrYOyJ7V5h8I3oK7PebQdjBtvIpBoJ9daX13m00Va2QSn6X',
+        locale: 'auto',
+        source: async (source) => {
+          this.loading = true;
+          console.log(source);
+          let idAccount = localStorage.getItem('idAccount');
+          this.stripeRecharge.token = source.id;
+          this.stripeRecharge.amount = this._rechargeService.montoExterno*100;
+          this.stripeRecharge.fecha_stripe = this.currentDate;
+          this.stripeRecharge.fk_account_send = Number(idAccount);
+          console.log(this.stripeRecharge);
+          this.loading = false;
+          this.sendStripe();
+        }
+      });
+  }
+  async checkout(e) {
+    this.handler.open({
+      name: 'Recarga MonyUCAB',
+      amount: this._rechargeService.montoExterno,
+    });
+    e.preventDefault();
   }
 
-  pay(amount) {   
-    
-    this.handler = Stripe.StripeCheckout.configure({
-      key: 'pk_test_51H9DobCwcmgMmAo0CkSDi3Vc6zDhHMqR314eie67Ouu9FyLdxpMCrYOyJ7V5h8I3oK7PebQdjBtvIpBoJ9daX13m00Va2QSn6X',
-      locale: 'auto',
-      token: (token: any)=> {
-        console.log(token);
-        let idAccount = localStorage.getItem('idAccount');
-        this.stripe.token = token.id;
-        this.stripe.amount = this._rechargeService.montoExterno*100;
-        this.stripe.fecha_stripe = this.currentDate;
-        this.stripe.fk_account_send = Number(idAccount);
-        
-        console.log(this.stripe);
-        this.sendStripe();
-      }
-      
-    });
-    
-    this.handler.open({
-      name: 'MonyUCAB',
-      description: 'Recarga de Saldo',
-      amount: amount * 100
-    });
-
+  @HostListener('window:popstate')
+  onPopstate() {
+    this.handler.close();
   }
 
   sendStripe(){
-    this._rechargeService.postStripe(this.stripe).subscribe(res=>{
+    this._rechargeService.postStripe(this.stripeRecharge).subscribe(res=>{
       this.mostrarValidacion('Exito','Recarga exitosa!','success','Ok');
       this.router.navigate(['/balance']);
     },(error:HttpErrorResponse)=>{
@@ -139,30 +142,6 @@ export class ExternalrechargeComponent implements OnInit {
       icon: icono,
       confirmButtonText: confimacion
     });
-  }
-
-  loadStripe() {
-
-    if(!window.document.getElementById('stripe-script')) {
-      var s = window.document.createElement("script");
-      s.id = "stripe-script";
-      s.type = "text/javascript";
-      s.src = "https://checkout.stripe.com/checkout.js";
-      s.onload = () => {
-        this.handler = Stripe.StripeCheckout.configure({
-          key: 'pk_test_51H9DobCwcmgMmAo0CkSDi3Vc6zDhHMqR314eie67Ouu9FyLdxpMCrYOyJ7V5h8I3oK7PebQdjBtvIpBoJ9daX13m00Va2QSn6X',
-          locale: 'auto',
-          token: function (token: any) {
-            // You can access the token ID with `token.id`.
-            // Get the token ID to your server-side code for use.
-            console.log(token);
-            alert('Payment Success!!');
-          }
-        });
-      }
-
-      window.document.body.appendChild(s);
-    }
   }
 
 }

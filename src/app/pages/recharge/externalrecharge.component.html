@@ -11,9 +11,9 @@
 
                     </div>
                     <h3>Stripe:</h3>
-                    <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" id="submit-button" (click)="pay(_rechargeService.montoExterno)">
-                        Pagar ${{_rechargeService.montoExterno}}
-                    </button>
+                    <button (click)="checkout($event)" class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light"> Recargar {{ _rechargeService.montoExterno }}.00B.s</button>
+                    <hr>
+                    <div *ngIf="loading">Cargando....</div>
                 </div>
             </div>
         </div>
