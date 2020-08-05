@@ -23,13 +23,13 @@
                     <h3 class="card-title"> <strong>Ultimas transacciones:</strong> </h3>
                 </div>
                 <div class="col-sm">
-                    <button class="btn btn-info btn-md text-uppercase waves-effect waves-light float-right" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                    <button class="btn btn-info btn-md text-uppercase waves-effect waves-light float-right" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
                         Mostrar/Ocultar
                     </button>
                 </div>
             </div>
             <hr>
-            <div class="collapse show" id="collapse1">
+            <div class="collapse show" id="collapse1" *ngIf="operations">
                 <div class="row" *ngFor="let op of operations">
                     <div class="col-12">
                         <div class="card">
@@ -60,21 +60,21 @@
                     <h3 class="card-title"> <strong>Reintegros:</strong> </h3>
                 </div>
                 <div class="col-sm">
-                    <button class="btn btn-info btn-md text-uppercase waves-effect waves-light float-right" type="button" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                    <button class="btn btn-info btn-md text-uppercase waves-effect waves-light float-right" type="button">
                         Mostrar/Ocultar
                     </button>
                 </div>
             </div>
             <hr>
-            <div class="collapse show" id="collapse2">
-                <div class="row" *ngFor="let op of refunds">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
+            <div>
+                <div class="row" *ngFor="let re of refunds ">
+                    <div class="col-12 ">
+                        <div class="card ">
+                            <div class="card-body ">
                                 <div>
-                                    <h4><strong>Estatus: </strong> <strong class="text-success">{{op.status}}</strong></h4>
-                                    <h4><strong>Referencia: </strong> {{op.reference}}</h4>
-                                    <h4><strong>Monto: </strong> <strong class="text-success">B.s {{op.amount}}</strong></h4>
+                                    <h4><strong>Estatus: </strong> <strong class="text-success ">{{re.status}}</strong></h4>
+                                    <h4><strong>Referencia: </strong> {{re.reference}}</h4>
+                                    <h4><strong>Monto: </strong> <strong class="text-success ">B.s {{re.amount}}</strong></h4>
                                     <hr>
                                 </div>
                             </div>
@@ -86,28 +86,28 @@
     </div>
 </div>
 
-<div class="col-12">
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-sm">
-                    <h3 class="card-title"> <strong>Todas las transacciones:</strong> </h3>
+<div class="col-12 ">
+    <div class="card ">
+        <div class="card-body ">
+            <div class="row ">
+                <div class="col-sm ">
+                    <h3 class="card-title "> <strong>Todas las transacciones:</strong> </h3>
                 </div>
-                <div class="col-sm">
-                    <button class="btn btn-info btn-md text-uppercase waves-effect waves-light float-right" type="button" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                <div class="col-sm ">
+                    <button class="btn btn-info btn-md text-uppercase waves-effect waves-light float-right " type="button " data-toggle="collapse " data-target="#collapse3 " aria-expanded="false " aria-controls="collapse3 ">
                     Mostrar/Ocultar
                 </button>
                 </div>
             </div>
             <hr>
-            <div class="collapse show" id="collapse3">
-                <div class="row" *ngFor="let op of allOperations">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
+            <div class="collapse show " id="collapse3 ">
+                <div class="row " *ngFor="let op of allOperations ">
+                    <div class="col-12 ">
+                        <div class="card ">
+                            <div class="card-body ">
                                 <div>
                                     <h4><strong>Fecha de la operacón:</strong> {{op.date_operation | date: 'dd/MM/yyyy'}}</h4>
-                                    <h4><strong>Monto: </strong> <strong class="text-success">B.s {{op.amount}}</strong></h4>
+                                    <h4><strong>Monto: </strong> <strong class="text-success ">B.s {{op.amount}}</strong></h4>
                                     <h4><strong>Destinatario: </strong> {{op.account_number}}</h4>
                                     <h4><strong>Referencia: </strong> {{op.reference}}</h4>
                                     <h4><strong>Tipo de operación: </strong> {{op.type_operation}}</h4>

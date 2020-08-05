@@ -20,31 +20,81 @@
                 <th scope="row">Cobros</th>
                 <td>{{reporte1.cant_cobros}}</td>
                 <td>{{reporte1.mtotal_cobros}}</td>
-                
+
             </tr>
             <tr>
                 <th scope="row">Pagos</th>
                 <td>{{reporte1.cant_pagos}}</td>
                 <td>{{reporte1.mtotal_pagos}}</td>
-    
+
             </tr>
             <tr>
                 <th scope="row">Recargas</th>
                 <td>{{reporte1.cant_recargas}}</td>
                 <td>{{reporte1.mtotal_recargas}}</td>
-    
+
             </tr>
             <tr>
                 <th scope="row">Retiros</th>
                 <td>{{reporte1.cant_retiros}}</td>
                 <td>{{reporte1.mtotal_retiros}}</td>
-    
+
             </tr>
             <tr>
                 <th scope="row">Devoluciones</th>
                 <td>{{reporte1.cant_devoluciones}}</td>
                 <td>{{reporte1.mtotal_devoluciones}}</td>
-    
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+
+<!-- Reporte 2.1. -->
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title text-center"> <strong>Reporte 2.1</strong></h3>
+        </div>
+    </div>
+</div>
+<div class="col-12">
+    <table class="table table-striped table-bordered" style="background-color: white;">
+        <thead>
+            <tr>
+                <th scope="col">Nombre del Comercio</th>
+                <th scope="col">Monto Total Comisión (Bs.S)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of reporte2_1">
+                <td>{{item.commerce_name}}</td>
+                <td>{{item.mtotal_comision}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+
+<!-- Reporte 2.2. -->
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title text-center"> <strong>Reporte 2.2</strong></h3>
+        </div>
+    </div>
+</div>
+<div class="col-12">
+    <table class="table table-striped table-bordered" style="background-color: white;">
+        <thead>
+            <tr>
+                <th scope="col">Monto Total Comisión (Bs.S)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{reporte2_2.mtotal_comision}}</td>
             </tr>
         </tbody>
     </table>
@@ -57,19 +107,19 @@
         <div class="card-body">
             <h3 class="card-title text-center"><strong>Reporte 5.1</strong></h3>
             <hr>
-            <form ngNativeValidate #f="ngForm" class="form-horizontal form-material" (ngSubmit)="solicitar(f)">
+            <form ngNativeValidate #f="ngForm" class="form-horizontal form-material" (ngSubmit)="solicitarReporte5_1(f)">
                 <div class="row">
                     <div class="col-sm">
                         <div class="form-group m-t-40">
                             <div class="col-xs-12">
-                                <input ngModel name="fechaI" class="form-control" type="date" required >
+                                <input ngModel name="fechaI" class="form-control" type="date" required>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm">
                         <div class="form-group m-t-40">
                             <div class="col-xs-12">
-                                <input ngModel name="fechaF" class="form-control" type="date" required >
+                                <input ngModel name="fechaF" class="form-control" type="date" required>
                             </div>
                         </div>
                     </div>
@@ -84,7 +134,7 @@
     </div>
 </div>
 
-<div class="col-12">
+<div class="col-12" *ngIf="ocultarR5_1">
     <table class="table table-striped table-bordered" style="background-color: white;">
         <thead>
             <th scope="col">Monto</th>
@@ -92,12 +142,70 @@
             <th scope="col">Referencia</th>
         </thead>
         <tbody>
-            <tr *ngFor="let json of reporte5">  
+            <tr *ngFor="let json of reporte5">
                 <td>{{json.amount | currency:" "}} B.s</td>
                 <td>{{json.fecha_retiro | date: 'dd/MM/yyyy'}}</td>
                 <td>{{json.reference}}</td>
             </tr>
-            
+
+        </tbody>
+    </table>
+</div>
+
+<!--Reporte 5.2-->
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title text-center"><strong>Reporte 5.2</strong></h3>
+            <hr>
+            <form ngNativeValidate #form="ngForm" class="form-horizontal form-material" (ngSubmit)="solicitarReporte5_2(form)">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-group m-t-40">
+                            <div class="col-xs-12">
+                                <input ngModel name="id_ac" class="form-control" type="number" placeholder="ID Cuenta" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="form-group m-t-40">
+                            <div class="col-xs-12">
+                                <input ngModel name="fechaI" class="form-control" type="date" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="form-group m-t-40">
+                            <div class="col-xs-12">
+                                <input ngModel name="fechaF" class="form-control" type="date" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group text-center m-t-20">
+                    <div class="col-xs-12">
+                        <button class="btn btn-info btn-lg btn-block text-uppercase btn-rounded" type="submit">Solicitar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="col-12" *ngIf="ocultarR5_2">
+    <table class="table table-striped table-bordered" style="background-color: white;">
+        <thead>
+            <th scope="col">Monto</th>
+            <th scope="col">Fecha de Retiro</th>
+            <th scope="col">Referencia</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let json of reporte5_2">
+                <td>{{json.amount | currency:" "}} B.s</td>
+                <td>{{json.fecha_retiro | date: 'dd/MM/yyyy'}}</td>
+                <td>{{json.reference}}</td>
+            </tr>
+
         </tbody>
     </table>
 </div>

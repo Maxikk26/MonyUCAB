@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
   refunds =[];
   date: Date;
   currentMonth:string;
+  data:any;
 
   constructor(
     public _accountService: AccountService,
@@ -37,7 +38,6 @@ export class DashboardComponent implements OnInit {
     this.idAccount = localStorage.getItem('idAccount');
     let persona = localStorage.getItem('rol');
     setTimeout(()=>{
-      this.idAccount = localStorage.getItem('idAccount');
       this._accountService.getOperations(this.idAccount).subscribe((resp:any)=>{
         this.operations = resp;
         this.allOperations = resp;
@@ -56,28 +56,37 @@ export class DashboardComponent implements OnInit {
             }
           }
         });
-        this._accountService.getRefunds().subscribe((resp:any)=>{
-          for(let i = 0; i < resp.length; i++){
-            let obj = resp[i];
-            for(let j = 0; j < this.allOperations.length; j++){
-              let obj1 = this.allOperations[j];
-              if(obj.fk_operation == obj1.id_operation){
-                let str = `{"amount":${obj1.amount},"status":"${obj1.op_status}","reference":"${obj1.reference}","info":"${obj1.info}"}`;
-                this.refunds.push(JSON.parse(str));                
+        
+        this._accountService.getRefunds().subscribe((resp:any)=>{  
+          this._accountService.getOperations(this.idAccount).subscribe((res:any)=>{
+            this.allOperations = res;
+            for(let i = 0; i < resp.length; i++){
+              let obj = resp[i];
+              for(let j = 0; j < this.allOperations.length; j++){
+                let obj1 = this.allOperations[j];
+                console.log(obj1);
+                if(obj.fk_operation == obj1.id_operation){
+                  let str = `{"amount":${obj1.amount},"status":"${obj1.op_status}","reference":"${obj1.reference}","info":"${obj1.info}"}`;
+                  this.refunds.push(JSON.parse(str));   
+                  console.log(this.refunds);
+                    
+                }
               }
             }
-          }
-
+          });               
+          
+        
         }); 
       },(error:HttpErrorResponse)=>{      
-      });
+      }); 
     },1000);
+       
     if(persona === 'natural'){
       this.natural = true;
     }
     else
       this.natural = false;
-    this._accountService.getAccount(this.id).subscribe((resp: Account)=>{
+    this._accountService.getAccount(this.idAccount).subscribe((resp: Account)=>{
       this.cuenta = resp;
     });
        

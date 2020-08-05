@@ -1,11 +1,10 @@
-<!-- 
 <div class="container">
     <div class="row justify-content-xl-center">
         <div class="card col-6">
             <div class="card-body">
                 <h2 class="text-center"><strong>Registrar Sub-Usuario</strong></h2>
                 <hr>
-                <form ngNativeValidate [formGroup]="form" (ngSubmit)="registrarPersona()" class="form-horizontal form-material" id="loginform" action="index.html">
+                <form ngNativeValidate [formGroup]="form" (ngSubmit)="submit()" class="form-horizontal form-material" id="loginform" action="index.html">
                     <div class="form-group m-t-20">
                         <div class="col-xs-12">
                             <input formControlName="nombre" name="nombre" class="form-control" type="text" required placeholder="Nombre">
@@ -26,15 +25,15 @@
                             <input [ngModel]="date | date:'yyyy-MM-dd'" formControlName="fechaNac" name="fechaNac" class="form-control textbox-n" type="date" required placeholder="Fecha de Nacimiento">
                         </div>
                     </div>
-    
+
                     <div class="form-group m-t-20">
                         <div class="col-xs-12">
-                            <select formControlName="paisNac" name="paisNac" class="form-control" >
+                            <select formControlName="paisNac" name="paisNac" class="form-control">
                                 <option [ngValue]="null" disabled selected>País</option>
                                 <option *ngFor="let pais of paises" [value]="pais.name">{{pais.name}}</option>
                               </select>
                         </div>
-                    </div>    
+                    </div>
                     <div class="form-group">
                         <div class="col-xs-12">
                             <select formControlName="genero" name="genero" class="form-control" id="genero">
@@ -93,4 +92,4 @@
             </div>
         </div>
     </div>
-</div> -->
+</div>

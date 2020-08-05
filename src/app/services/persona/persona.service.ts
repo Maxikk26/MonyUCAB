@@ -25,6 +25,27 @@ export class PersonaService {
     pw_password: '',
     pw_status: 0,
   }]
+  subuser = [{
+    username: "",
+    register_date: "",
+    email: "",
+    direction: "",
+    phone: "",
+    identification: "",
+    user_status: 1,
+    failed_attempts: 3,
+    sub_user: 1,
+    fk_account: 0,
+    fk_user: 0,
+    first_name: "",
+    last_name: "",
+    birthdate: "",
+    birth_country: "",
+    gender: "",
+    pw_password: "",
+    pw_date: "",
+    pw_status: 1
+  }];
 
   constructor(
     public http: HttpClient
@@ -32,6 +53,9 @@ export class PersonaService {
 
   vacio(){
     return this.persona[0];
+  }
+  subUserVacio(){
+    return this.subuser[0];
   }
 
   getPersona(id: string){

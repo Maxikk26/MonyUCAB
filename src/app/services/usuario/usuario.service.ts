@@ -113,5 +113,10 @@ export class UsuarioService {
      
    }
 
+   postSubUser(json){
+     let url = URL_SERVICIOS + '/SubUsersRegister';
+     return this.http.post(url,json);
+   }
+
    
 }

@@ -17,17 +17,26 @@ export class AccountService {
   parametros: any[] = [{
     fk_account:0,
     fk_parameter:1,
-    parameter_value:5
+    parameter_value:1
   },
   {
     fk_account:0,
     fk_parameter:2,
-    parameter_value:10000
+    parameter_value:2
   },
   {
     fk_account:0,
     fk_parameter:3,
-    parameter_value:1000
+    parameter_value:3
+  }];
+
+  retiro =[{
+    amount:0,
+    withdrawal_date:"",
+    reference:"",
+    account_number:"",
+    fk_account:0,
+    fk_bank:1
   }];
 
 
@@ -43,6 +52,10 @@ export class AccountService {
 
   parametrosBase(){
     return this.parametros;
+  }
+
+  retiroBase(){
+    return this.retiro[0];
   }
 
   /*Peticiones GET*/
@@ -86,10 +99,25 @@ export class AccountService {
     return this.http.get(url);
   }
 
+  getUser(id){
+    let url = URL_SERVICIOS + '/users/'+id;
+    return this.http.get(url);
+  }
+
+  getCommerce(id){
+    let url = URL_SERVICIOS + '/commerces/'+id;
+    return this.http.get(url);
+  }
+
   /*Peticiones POST*/
 
   postParameters(json:JSON){
     let url = URL_SERVICIOS + '/ConfigurationParameters';
+    return this.http.post(url,json);
+  }
+
+  postRetiro(json){
+    let url = URL_SERVICIOS + '/withdrawals';
     return this.http.post(url,json);
   }
 
@@ -141,7 +169,7 @@ export class AccountService {
           path.push(feed);
           break;
         case 'comision':
-          feed = {"op":"replace","path":"/commission","value":formCommerce.controls[index].value};
+          feed = {"op":"replace","path":"/commission","value":Number(formCommerce.controls[index].value)};
           path.push(feed);
           break
       }

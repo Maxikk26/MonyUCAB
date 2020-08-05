@@ -11,9 +11,9 @@
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><img src="../assets/images/users/profile.png" alt="user" /><span class="hide-menu">{{usuario}}</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a class="pointer" routerLinkActive="active" routerLink="/account">Mi Perfil </a></li>
-                        <li><a class="pointer" routerLinkActive="active" routerLink="/balance" *ngIf="natural">Mi Saldo</a></li>
-                        <li><a class="pointer" routerLinkActive="active" routerLink="/withdraw" *ngIf="!natural">Retiros</a></li>
-                        <li><a class="pointer" routerLinkActive="active" routerLink="/account-settings">Configurar Cuenta</a></li>
+                        <li><a class="pointer" routerLinkActive="active" routerLink="/balance" *ngIf="saldo">Mi Saldo</a></li>
+                        <li><a class="pointer" routerLinkActive="active" routerLink="/withdraw" *ngIf="retiros">Retiros</a></li>
+                        <li><a class="pointer" routerLinkActive="active" routerLink="/account-settings" *ngIf="normal">Configurar Cuenta</a></li>
                         <li><a class="pointer" routerLinkActive="active" routerLink="/admin-settings" *ngIf="adminrole">Configurar Cuenta</a></li>
                         <li><a class="pointer" (click)="_usuarioService.logout()">Cerrar Sesión</a></li>
                     </ul>

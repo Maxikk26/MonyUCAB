@@ -140,29 +140,26 @@ export class ComercioComponent implements OnInit {
 
     this._comercioService.crearUsuario(comercio)
     .subscribe(resp =>{
-      let json = {"username":this.form.value.usuario,"pw_password":this.form.value.pass}
-      this._comercioService.falseLogin(json).subscribe((resp:any)=>{
-        let id = resp.id;
-        this._accountService.getAccount(id).subscribe((resp:any)=>{
-          for(let i = 0; i <= 2; i++){
-            this.parametros[i].fk_account = resp.id_account;
-            this._accountService.postParameters(this.parametros[i]).subscribe(resp =>{
-            },(error: HttpErrorResponse)=>{
-              this.imprimirError(error.message);
+      this._accountService.getParameters("1").subscribe((acc:any)=>{
+        let json ={"username":this.form.value.usuario,"pw_password":this.form.value.pass};
+        this._comercioService.falseLogin(json).subscribe((resp:any)=>{
+          let id = resp.id;
+          this._accountService.getUser(id).subscribe((res:any)=>{
+            for(let i = 0;i < acc.length;i++){
+              let obj = acc[i];
+              this.parametros[i].parameter_value = obj.parameter_value;
+              this.parametros[i].fk_account = res.fk_account;
+              this._accountService.postParameters(this.parametros[i]).subscribe(res=>{
+                console.log(res);
+              },(error:HttpErrorResponse)=>{
+                console.log(error);
+              });
+            }
+          });
+        });
+        
 
-            });
-          }
-        });
-        Swal.fire({
-          title: '¡Exito!',
-          text: 'Registrado satisfactoriamente',
-          icon: 'success',
-          confirmButtonText: 'Ok'
-        });
       });
-      console.log(json);
-      console.log(resp);
-      //this.dataService.alert = true;
       this.router.navigate(['/login']);
     },((error: HttpErrorResponse) =>{
       console.log(error);

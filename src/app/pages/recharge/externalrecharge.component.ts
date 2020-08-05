@@ -10,10 +10,11 @@ import { AccountService } from './../../services/account/account.service';
 declare var paypal;
 declare var StripeCheckout;
 
+
 @Component({
   selector: 'app-externalrecharge',
   templateUrl: './externalrecharge.component.html',
-  styles: [],
+  styleUrls: ['./externalrecharge.component.css'],
   providers: [DatePipe]
 })
 export class ExternalrechargeComponent implements OnInit {
@@ -91,8 +92,8 @@ export class ExternalrechargeComponent implements OnInit {
           this.router.navigate(['/balance']);
         }
       })
-      .render(this.paypalElement.nativeElement);  
-
+      .render(this.paypalElement.nativeElement); 
+      
       this.handler = StripeCheckout.configure({
         key: 'pk_test_51H9DobCwcmgMmAo0CkSDi3Vc6zDhHMqR314eie67Ouu9FyLdxpMCrYOyJ7V5h8I3oK7PebQdjBtvIpBoJ9daX13m00Va2QSn6X',
         locale: 'auto',
@@ -110,6 +111,8 @@ export class ExternalrechargeComponent implements OnInit {
         }
       });
   }
+
+
   async checkout(e) {
     this.handler.open({
       name: 'Recarga MonyUCAB',
@@ -142,5 +145,6 @@ export class ExternalrechargeComponent implements OnInit {
       confirmButtonText: confimacion
     });
   }
+
 
 }

@@ -90,7 +90,7 @@ export class AccountSettingsComponent implements OnInit {
     let rol = localStorage.getItem('rol');
     let idAccount = localStorage.getItem('idAccount');
     this._accountService.getParameters(idAccount).subscribe((resp:any)=>{
-      console.log('Paramtros: '+resp);
+      //console.log('Paramtros: '+resp);
       
       this.setParametros(resp);
     });
@@ -115,7 +115,7 @@ export class AccountSettingsComponent implements OnInit {
       limite: new FormControl(null)
     });
     for(let i = 0; i < json.length; i++){
-      console.log(json[i]);
+      //console.log(json[i]);
       let name = json[i].parameter_name;
       let value = json[i].parameter_value;
       switch(name){
@@ -203,7 +203,7 @@ export class AccountSettingsComponent implements OnInit {
         });
         
         this._comercioService.getComercio(comercio.fk_user_mu).subscribe((res:any)=>{
-          console.log(res);
+         // console.log(res);
           this.formAux.setValue({
             telefonoComercio: user.phone,
             pais: comercio.country,
@@ -257,7 +257,7 @@ export class AccountSettingsComponent implements OnInit {
 
   validador(value1: string, value2: string, type: string){
     let bool = true;
-    console.log(type);
+    //console.log(type);
     //Se busca el valor de un admin.
     if(type == 'cantidad')
       this._accountService.getUsers().subscribe((resp:any)=>{
@@ -325,7 +325,7 @@ export class AccountSettingsComponent implements OnInit {
     }else if (!comp) return;
     if(this.forma){
       json = this._accountService.crearJsonPersona(arreglo,form1);
-      let path = this._accountService.crearJsonUsuario(arreglo,form1);
+      let path = this._accountService.crearJsonUsuario(arreglo,form1);      
       this._accountService.patchPerson(id,json).subscribe((resp)=>{
         if(path.length){
           this._accountService.patchUsuario(id,path).subscribe((resp)=>{
@@ -345,20 +345,25 @@ export class AccountSettingsComponent implements OnInit {
     else{
       json = this._accountService.crearJsonComercio(arreglo,form1);
       let path = this._accountService.crearJsonUsuario(arreglo,form1);
-      this._accountService.patchComercio(id,json).subscribe(resp=>{
-        if(path.length){
-          this._accountService.patchUsuario(id,path).subscribe((resp)=>{
+      //console.log(json);
+      this._accountService.getCommerce(id).subscribe((res:any)=>{
+        //console.log(res);
+        id = res.id_commerce;
+        this._accountService.patchComercio(id,json).subscribe(resp=>{
+          if(path.length){
+            this._accountService.patchUsuario(id,path).subscribe((resp)=>{
+              this.mostrarValidacion('¡Modificación exitosa!','Sus datos han sido modificados exitosamente','success','Ok');
+  
+            },(error:HttpErrorResponse)=>{
+              this.mostrarValidacion('Error',error.message,'error','Ok');
+            });
+          }
+          else{
             this.mostrarValidacion('¡Modificación exitosa!','Sus datos han sido modificados exitosamente','success','Ok');
-
-          },(error:HttpErrorResponse)=>{
-            this.mostrarValidacion('Error',error.message,'error','Ok');
-          });
-        }
-        else{
-          this.mostrarValidacion('¡Modificación exitosa!','Sus datos han sido modificados exitosamente','success','Ok');
-        }
-      },(error:HttpErrorResponse)=>{
-        this.mostrarValidacion('Error',error.message,'error','Ok');
+          }
+        },(error:HttpErrorResponse)=>{
+          this.mostrarValidacion('Error',error.message,'error','Ok');
+        });
       });
     }
   }
