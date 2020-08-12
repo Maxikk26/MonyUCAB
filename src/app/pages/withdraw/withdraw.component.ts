@@ -38,7 +38,8 @@ export class WithdrawComponent implements OnInit {
     }
     else{
       let idAccount = localStorage.getItem('idAccount');
-      this._accountService.getAccount(idAccount).subscribe((res:any)=>{
+      let id = localStorage.getItem('id');
+      this._accountService.getAccount(id).subscribe((res:any)=>{
         console.log(res);        
         if(form.value.Total){
           console.log('total');

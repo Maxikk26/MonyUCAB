@@ -86,7 +86,7 @@ export class DashboardComponent implements OnInit {
     }
     else
       this.natural = false;
-    this._accountService.getAccount(this.idAccount).subscribe((resp: Account)=>{
+    this._accountService.getAccount(this.id).subscribe((resp: Account)=>{
       this.cuenta = resp;
     });
        

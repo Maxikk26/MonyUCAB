@@ -32,7 +32,7 @@ export class AccountComponent implements OnInit {
     this._usuarioService.getUsuario(id).subscribe((resp:Usuario)=>{
       this.usuario = resp;
     });
-    this._accountService.getAccount(idAccount).subscribe((resp:any)=>{
+    this._accountService.getAccount(id).subscribe((resp:any)=>{
       this.nroCuenta = resp.account_number;
     });
     if(rol === 'natural'){

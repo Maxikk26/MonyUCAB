@@ -27,6 +27,7 @@ export class AccountSettingsComponent implements OnInit {
   comercio: ComercioRegistro;
   persona: PersonaRegistro;
   rol = false;
+  subuser = false;
 
    constructor(
     public _ajustes: SettingsService,
@@ -106,6 +107,10 @@ export class AccountSettingsComponent implements OnInit {
         this.formComercio(resp);
       });
     }
+    this._accountService.getUser(id).subscribe((resp:any)=>{
+      if(resp.sub_user == 1)
+        this.subuser = true;
+    });
 
   }
   setParametros(json:any){

@@ -35,7 +35,18 @@ export class BalanceComponent implements OnInit {
       this.cuenta = resp;
     });
     if(rol === 'natural'){
-      this.natural = true;
+      let id = localStorage.getItem('id');
+      this._accountService.getUser(id).subscribe((resp:any)=>{
+        console.log(resp);
+        
+        if(resp.sub_user == 1){
+          console.log('subuser');
+          
+          this.natural = false;
+        }
+        else
+          this.natural = true;
+      });
       this._accountService.getRecharges().subscribe((resp:any[])=>{        
         for(let i = 0; i < resp.length; i++){
           let obj = resp[i];

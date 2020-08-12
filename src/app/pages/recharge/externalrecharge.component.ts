@@ -45,7 +45,8 @@ export class ExternalrechargeComponent implements OnInit {
   ngOnInit() {
     this.stripeRecharge = this._rechargeService.stripeVacio();   
     let idAccount = localStorage.getItem('idAccount');
-    this._accountService.getAccount(idAccount).subscribe((res:any)=>{
+    let id = localStorage.getItem('id');
+    this._accountService.getAccount(id).subscribe((res:any)=>{
       this.stripeRecharge.fk_account_receive = res.account_number;
     });
     this.recarga = this._rechargeService.recargaVacia();
