@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
   cuenta: Account;
   id: string;
   idAccount: string;
-  natural: boolean;
+  natural = false;
   operations=[];
   allOperations=[];
   refunds =[];
@@ -82,10 +82,11 @@ export class DashboardComponent implements OnInit {
     },1000);
        
     if(persona === 'natural'){
-      this.natural = true;
+      this._accountService.getUser(this.id).subscribe((resp:any)=>{
+        if(resp.sub_user != 1)
+          this.natural = true;
+      });
     }
-    else
-      this.natural = false;
     this._accountService.getAccount(this.id).subscribe((resp: Account)=>{
       this.cuenta = resp;
     });
