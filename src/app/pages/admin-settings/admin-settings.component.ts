@@ -27,8 +27,6 @@ export class AdminSettingsComponent implements OnInit {
     });
     let idAccount = localStorage.getItem('idAccount');
     this._accountService.getParameters(idAccount).subscribe((resp:any)=>{
-      console.log('Parametros: '+resp);
-      
       this.setParametros(resp);
     });
     
@@ -95,7 +93,7 @@ export class AdminSettingsComponent implements OnInit {
             this.jsonPutPopper(json1);
           //A los usuarios se le hace una comprobacion
           }else{
-            this._accountService.getParameters(user.id_user).subscribe((data:any)=>{
+            this._accountService.getParameters(user.fk_account).subscribe((data:any)=>{
               for (let param of data){
                 for(let x of arreglo){
                   if(x == 'cantidad' && param.parameter_name == 'Cantidad de Transacciones' && param.parameter_value > form1.controls[x].value)
@@ -111,6 +109,7 @@ export class AdminSettingsComponent implements OnInit {
           }
         }
       });
+      this.mostrarValidacion('¡Modificación exitosa!','Los parámetros han sido modificados exitosamente.','success','Ok');
       return;
     }
   }
@@ -118,7 +117,6 @@ export class AdminSettingsComponent implements OnInit {
   jsonPutPopper(json: any[]){
     for(let i = 0;i < json.length;i++){
       this._accountService.putParameters(json[i]).subscribe((resp:any)=>{
-        this.mostrarValidacion('¡Modificación exitosa!','Los parámetros han sido modificados exitosamente.','success','Ok');
       },(error:HttpErrorResponse)=>{
         this.mostrarValidacion('Error','Se ha producido un error inesperado.','error','Ok');
       });

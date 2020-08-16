@@ -227,7 +227,7 @@ export class AccountService {
     return path;
   }
 
-  crearJsonParametros(arreglo:string[],form:FormGroup, adminAcc:Number, fullJson:string[]){
+  crearJsonParametros(arreglo:string[],form:FormGroup, idAcc:Number, fullJson:string[]){
     let json;
     let array=[];
     let idAccount = localStorage.getItem('idAccount');
@@ -235,35 +235,35 @@ export class AccountService {
       let index = arreglo[i];      
       switch(index){
         case 'cantidad':
-          if(adminAcc==null){
+          if(idAcc==null){
             json = {"fk_account":idAccount,"fk_parameter":1,"parameter_value":Number(form.controls[index].value)};
             array.push(json);
           }else{
-            json = {"fk_account":adminAcc,"fk_parameter":1,"parameter_value":Number(form.controls[index].value)};
+            json = {"fk_account":idAcc,"fk_parameter":1,"parameter_value":Number(form.controls[index].value)};
             fullJson.push(json);
           }
           break;
         case 'monto':
-          if(adminAcc==null){
+          if(idAcc==null){
             json = {"fk_account":idAccount,"fk_parameter":2,"parameter_value":Number(form.controls[index].value)};
             array.push(json);
           }else{
-            json = {"fk_account":adminAcc,"fk_parameter":2,"parameter_value":Number(form.controls[index].value)};
+            json = {"fk_account":idAcc,"fk_parameter":2,"parameter_value":Number(form.controls[index].value)};
             fullJson.push(json);
           }
           break;
         case 'limite':
-          if(adminAcc==null){
+          if(idAcc==null){
             json = {"fk_account":idAccount,"fk_parameter":3,"parameter_value":Number(form.controls[index].value)};
             array.push(json);
           }else{
-            json = {"fk_account":adminAcc,"fk_parameter":3,"parameter_value":Number(form.controls[index].value)};
+            json = {"fk_account":idAcc,"fk_parameter":3,"parameter_value":Number(form.controls[index].value)};
             fullJson.push(json);
           }
           break;
       }
     }
-    if(adminAcc == null)
+    if(idAcc == null)
       return array;
     else
       return fullJson;
